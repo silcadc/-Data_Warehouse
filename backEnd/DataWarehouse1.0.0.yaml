@@ -1,0 +1,586 @@
+---
+openapi: 3.0.0
+info:
+  title: Data Warehouse
+  description: This is a documentation for Data Warehouse.
+  contact:
+    email: silenadangond1@gmail.com
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/silcadc/DataWarehouse/1.0.0
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: users
+  description: here you can find the administrator and basic users
+- name: regions
+  description: here you can find regions
+- name: countries
+  description: here you can find countries
+- name: cities
+  description: here you can find cities
+- name: companies
+  description: here you can find companies
+- name: contacts
+  description: here you can find contacts
+paths:
+  /users:
+    get:
+      tags:
+      - users
+      summary: get all registered users
+      description: the basic user has access only to their information and the admin user can see all registered users
+      responses:
+        "200":
+          description: search users matching criteria
+        "400":
+          description: request not found
+          content:
+            application/json:
+              schema:
+                type: string
+                example: '{"message":"Error 404. Page or request not found"}'
+    post:
+      tags:
+      - users
+      summary: create an new user
+      requestBody:
+        description: fields to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userItems'
+      responses:
+        "201":
+          description: user created
+        "404":
+          description: you aren't an administrator user
+  /users/{id}:
+    put:
+      tags:
+      - users
+      summary: updated users
+      description: an administrator user can edit the user
+      parameters:
+      - name: id
+        in: path
+        description: user that need to be updated
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: Updated user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userItems'
+        required: true
+      responses:
+        "200":
+          description: update user
+        "400":
+          description: you aren't an administrator user
+    delete:
+      tags:
+      - users
+      summary: to delete user by ID
+      description: an administrator user can delete the user
+      parameters:
+      - name: id
+        in: path
+        description: user that needs to be deleted
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: update user
+        "400":
+          description: you aren't an administrator
+    patch:
+      tags:
+      - users
+      summary: user updated
+      description: an administrator user can edit something the user
+      parameters:
+      - name: id
+        in: path
+        description: user that need to be updated
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        description: Updated user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userItems'
+        required: true
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: invalid order
+  /users/login:
+    get:
+      tags:
+      - users
+      summary: entry personal account
+      description: allows access to personal account
+      parameters:
+      - name: username
+        in: query
+        description: the user name for login
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: password
+        in: query
+        description: the password for login in clear text
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: you are on your account
+        "400":
+          description: request not found
+  /regions:
+    get:
+      tags:
+      - regions
+      summary: get all regions
+      description: returns all regions
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: request not found
+    post:
+      tags:
+      - regions
+      summary: a basic user and administrator can add the region required
+      requestBody:
+        description: fields to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/regionItem'
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: request not found
+  /regions/{id}:
+    put:
+      tags:
+      - regions
+      summary: updated regions
+      description: a basic user and administrator can edit the region required
+      parameters:
+      - name: id
+        in: path
+        description: region that need to be updated
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: Updated region
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/regionItem'
+        required: true
+      responses:
+        "200":
+          description: update region
+        "400":
+          description: request not found
+    delete:
+      tags:
+      - regions
+      summary: to delete products by ID
+      description: a basic user and administrator can delete the region required
+      parameters:
+      - name: id
+        in: path
+        description: region that needs to be deleted
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: delete region
+        "400":
+          description: request not found
+  /countries:
+    get:
+      tags:
+      - countries
+      summary: get all countries
+      description: returns all countries
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: request not found
+    post:
+      tags:
+      - countries
+      summary: a basic user and administrator can add the countries required
+      requestBody:
+        description: fields to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/countryItem'
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: request not found
+  /countries/{id}:
+    put:
+      tags:
+      - countries
+      summary: updated countries
+      description: a basic user and administrator can edit the countries required
+      parameters:
+      - name: id
+        in: path
+        description: country that need to be updated
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: Updated country
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/countryItem'
+        required: true
+      responses:
+        "200":
+          description: update country
+        "400":
+          description: request not found
+    delete:
+      tags:
+      - countries
+      summary: to delete countries by ID
+      description: a basic user and administrator can delete the countries required
+      parameters:
+      - name: id
+        in: path
+        description: countries that needs to be deleted
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: delete countries
+        "400":
+          description: request not found
+  /cities:
+    get:
+      tags:
+      - cities
+      summary: get all cities
+      description: returns all cities
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: request not found
+    post:
+      tags:
+      - cities
+      summary: a basic user and administrator can add the cities required
+      requestBody:
+        description: fields to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cityItem'
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: request not found
+  /cities/{id}:
+    put:
+      tags:
+      - cities
+      summary: updated cities
+      description: a basic user and administrator can edit the cities required
+      parameters:
+      - name: id
+        in: path
+        description: cities that need to be updated
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: Updated cities
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cityItem'
+        required: true
+      responses:
+        "200":
+          description: update cities
+        "400":
+          description: request not found
+    delete:
+      tags:
+      - cities
+      summary: to delete cities by ID
+      description: a basic user and administrator can delete the cities required
+      parameters:
+      - name: id
+        in: path
+        description: cities that needs to be deleted
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: delete cities
+        "400":
+          description: request not found
+  /companies:
+    get:
+      tags:
+      - companies
+      summary: get all companies
+      description: returns all companies
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: request not found
+    post:
+      tags:
+      - companies
+      summary: the basic user and the administrator can register a new company
+      requestBody:
+        description: items to register a new company
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/companyItems'
+        required: true
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: invalid order
+  /companies/{id}:
+    put:
+      tags:
+      - companies
+      summary: updated companies
+      description: a basic user and administrator can edit the companies required
+      parameters:
+      - name: id
+        in: path
+        description: companies that need to be updated
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: Updated companies
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/companyItems'
+        required: true
+      responses:
+        "200":
+          description: update companies
+        "400":
+          description: request not found
+    delete:
+      tags:
+      - companies
+      summary: to delete companies by ID
+      description: a basic user and administrator can delete the companies required
+      parameters:
+      - name: id
+        in: path
+        description: companies that needs to be deleted
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: delete companies
+        "400":
+          description: request not found
+  /contacts:
+    get:
+      tags:
+      - contacts
+      summary: get all contacts
+      description: returns all contacts
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: request not found
+    post:
+      tags:
+      - contacts
+      summary: an user can generate a new contacts
+      requestBody:
+        description: user generated contacts
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/contactItems'
+        required: true
+      responses:
+        "200":
+          description: successful operation
+        "400":
+          description: invalid order
+  /contacts/{id}:
+    put:
+      tags:
+      - contacts
+      summary: updated contacts
+      description: a basic user and administrator can edit the contacts required
+      parameters:
+      - name: id
+        in: path
+        description: contacts that need to be updated
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        description: Updated companies
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/contactItems'
+        required: true
+      responses:
+        "200":
+          description: update contacts
+        "400":
+          description: request not found
+    delete:
+      tags:
+      - contacts
+      summary: to delete contacts by ID
+      description: a basic user and administrator can delete the contacts required
+      parameters:
+      - name: id
+        in: path
+        description: contacts that needs to be deleted
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: delete contacts
+        "400":
+          description: request not found
+components:
+  schemas:
+    userItems:
+      type: object
+      properties:
+        username:
+          type: string
+        name:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+        profile:
+          type: string
+        is_admin:
+          type: boolean
+        password:
+          type: string
+    regionItem:
+      type: object
+      properties:
+        name:
+          type: string
+    countryItem:
+      type: object
+      properties:
+        name:
+          type: string
+        region_id:
+          type: integer
+    cityItem:
+      type: object
+      properties:
+        name:
+          type: string
+        country_id:
+          type: integer
+    companyItems:
+      type: object
+      properties:
+        name:
+          type: string
+        telephone:
+          type: string
+        email:
+          type: string
+        city_id:
+          type: integer
+        address:
+          type: string
+    contactItems:
+      type: object
+      properties:
+        name:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+        company_id:
+          type: integer
+        city_id:
+          type: integer
+        address:
+          type: string
+        profile:
+          type: string
