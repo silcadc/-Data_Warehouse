@@ -1,32 +1,32 @@
 const express = require('express');
-let bodyParser = require('body-parser');
-let cors = require('cors');
-let jwt = require('jsonwebtoken');
-let expressJwt = require('express-jwt');
-const helmet = require('helmet');
-const rateLimit = require("express-rate-limit");
-const sequelize = require('./database/conexion');
+//let bodyParser = require('body-parser');
+//let cors = require('cors');
+//let jwt = require('jsonwebtoken');
+//let expressJwt = require('express-jwt');
+//const helmet = require('helmet');
+//const rateLimit = require("express-rate-limit");
+const sequelize = require('./dataBase/conexion.js');
 
-const port = 3000;
+const port = 3001;
 const server = express();
 server.use(express.json());
-server.use(helmet());
-server.use(cors());
-server.use(bodyParser.json());
+// server.use(helmet());
+// server.use(cors());
+// server.use(bodyParser.json());
 
 server.listen(port, () => {
     console.log(`Server listeting on port ${port}`)
 });
 
 //key for token enrollment
-let jwtClave = "5XSNGM0bTFjNCpEV0ZNTElORS02Mg==";
-server.use(expressJwt({ secret: jwtClave, algorithms: ['sha1', 'RS256', 'HS256']}).unless({ path: ["/users/login", "/users"] }));
+// let jwtClave = "5XSNGM0bTFjNCpEV0ZNTElORS02Mg==";
+// server.use(expressJwt({ secret: jwtClave, algorithms: ['sha1', 'RS256', 'HS256']}).unless({ path: ["/users/login", "/users"] }));
 
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 100
-});
-server.use(limiter);
+// const limiter = rateLimit({
+//     windowMs: 15 * 60 * 1000,
+//     max: 100
+// });
+// server.use(limiter);
 
 //Middleware for admin authorization
 // const authorization_Admin = (req, res, next) => {
@@ -44,7 +44,8 @@ server.use(limiter);
 
 //USERS
 server.get('/users', async function (req, res) {
-    let id_user = req.user.user
+    console.log("hola")
+    //let id_user = req.user.user
     let sqlquery = 'SELECT * FROM users'
     //let is_admin = req.user.is_admin
     // if(is_admin === false) {
@@ -64,11 +65,11 @@ server.get('/users', async function (req, res) {
 
 server.post('/users', async (req, res) => {
     const {
-        username, name, lastname, email, profile, is_admin, password
+       name, lastname, email, profile, is_admin, password
     } = req.body
-    let userInfo = [username, name, lastname, email, profile, is_admin, password];
+    let userInfo = [name, lastname, email, profile, is_admin, password];
     await sequelize.query(
-        'INSERT INTO users (`username`, `name`, `lastname`, `email`, `profile`, `is_admin`, `password`) VALUES(?, ?, ?, ?, ?, ?, ?)',
+        'INSERT INTO users (`name`, `lastname`, `email`, `profile`, `is_admin`, `password`) VALUES(?, ?, ?, ?, ?, ?)',
         {
             replacements: userInfo,
             type: sequelize.QueryTypes.INSERT
@@ -87,11 +88,11 @@ server.put('/users/:id', async (req, res) => {
     //     return res.status(401).send('You are not authorized to make modifications')
     // }      
     const {
-        username, name, lastname, email, profile, is_admin, password
+        name, lastname, email, profile, is_admin, password
     } = req.body
-    let userInfo = [username, name, lastname, email, profile, is_admin, password, id_user];
+    let userInfo = [name, lastname, email, profile, is_admin, password, id_user];
     await sequelize.query(
-        'UPDATE users SET `username`= ?,`name`= ?, `lastname`= ?, `email`= ?, `profile`= ?, `is_admin`= ?, `password`= ? WHERE user_id = ?',
+        'UPDATE users SET `name`= ?, `lastname`= ?, `email`= ?, `profile`= ?, `is_admin`= ?, `password`= ? WHERE user_id = ?',
         {
             replacements: userInfo,
             type: sequelize.QueryTypes.UPDATE
@@ -107,11 +108,11 @@ server.put('/users/:id', async (req, res) => {
 server.patch('/users/:id', async (req, res) => {
     let id_user = req.params.id;
     const {
-        username, name, lastname, email, profile, is_admin, password
+        name, lastname, email, profile, is_admin, password
     } = req.body
-    let usersInfo = [username, name, lastname, email, profile, is_admin, password, id_user];
+    let usersInfo = [name, lastname, email, profile, is_admin, password, id_user];
     await sequelize.query(
-        'UPDATE users SET `username`= ?,`name`= ?, `lastname`= ?, `email`= ?, `profile`= ?, `is_admin`= ?, `password`= ? WHERE user_id = ?',
+        'UPDATE users SET `name`= ?, `lastname`= ?, `email`= ?, `profile`= ?, `is_admin`= ?, `password`= ? WHERE user_id = ?',
         {
             replacements: usersInfo,
             type: sequelize.QueryTypes.UPDATE
@@ -145,10 +146,10 @@ server.delete('/users/:id', async (req, res) => {
 
 server.get("/users/login", function (req, res) {
     const {
-        username, password
+        email, password
     } = req.body
     sequelize.query(
-        `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`,
+        `SELECT * FROM users WHERE email = '${email}' AND password = '${password}'`,
         {        
             type: sequelize.QueryTypes.SELECT
         }
@@ -198,6 +199,7 @@ server.post('/regions', async (req, res) => {
         name
     } = req.body
     let regionsInfo = [name];
+    console.log(regionsInfo)
     await sequelize.query(
         'INSERT INTO regions (`name`) VALUES(?)',
         {
@@ -498,7 +500,7 @@ server.delete('/companies/:id', async (req, res) => {
     })
     .catch(error => res.status(500).send(error))
 });
-//////////////////////////
+
 //CONTACTS
 server.get('/contacts', async function (req, res) {
     await sequelize.query(

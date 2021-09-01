@@ -1,0 +1,31 @@
+{
+  "name": "4.datawarehouse",
+  "version": "1.0.0",
+  "description": "This is the last project of the DWFS school in Acamica, Data Warehouse.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/silcadc/-Data_Warehouse.git"
+  },
+  "author": "Silena_Dangond",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/silcadc/-Data_Warehouse/issues"
+  },
+  "homepage": "https://github.com/silcadc/-Data_Warehouse#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-jwt": "^6.1.0",
+    "express-rate-limit": "^5.3.0",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.3.0",
+    "nodemon": "^2.0.12",
+    "sequelize": "^6.6.5"
+  }
+}
