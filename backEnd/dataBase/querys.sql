@@ -60,3 +60,41 @@ CREATE TABLE `contacts` (
   CONSTRAINT `FK_city_contacts` FOREIGN KEY (`city_id`) REFERENCES `cities` (`city_id`),
   CONSTRAINT `FK_company_contacts` FOREIGN KEY (`company_id`) REFERENCES `companies` (`company_id`)
 )
+
+CREATE TABLE `channels` (
+  `channel_id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`channel_id`)
+);
+
+CREATE TABLE `data_warehouse`.`preferences` (
+  `preferences_id` INT NOT NULL,
+  `name` VARCHAR(45) NULL,
+  PRIMARY KEY (`preferences_id`));
+
+CREATE TABLE `data_warehouse`.`prefe_cont_chann` (
+  `pre_cont_chan_id` INT NOT NULL AUTO_INCREMENT,
+  `contact_id` INT NULL,
+  `channel_id` INT NULL,
+  `preferences_id` INT NULL,
+  `user_account` VARCHAR(45) NULL,
+  PRIMARY KEY (`pre_cont_chan_id`),
+  INDEX `FK_pcc_contact_idx` (`contact_id` ASC) VISIBLE,
+  INDEX `FK_pcc_channel_idx` (`channel_id` ASC) VISIBLE,
+  INDEX `FK_pcc_preference_idx` (`preferences_id` ASC) VISIBLE,
+  CONSTRAINT `FK_pcc_contact`
+    FOREIGN KEY (`contact_id`)
+    REFERENCES `data_warehouse`.`contacts` (`contact_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_pcc_channel`
+    FOREIGN KEY (`channel_id`)
+    REFERENCES `data_warehouse`.`channels` (`channel_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_pcc_preference`
+    FOREIGN KEY (`preferences_id`)
+    REFERENCES `data_warehouse`.`preferences` (`preferences_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
