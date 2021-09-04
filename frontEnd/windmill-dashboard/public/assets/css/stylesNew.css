@@ -1,0 +1,48 @@
+/*----------------------------*/
+/*     CREATE USER SECTION    */
+/*----------------------------*/
+#new_user {
+    width: 70%;
+    display: grid;
+    grid-template-columns: 40% 40%;
+}
+
+#create_new_contact {
+    width: 70%;
+    display: grid;
+    grid-template-columns: 40% 40%;
+    
+}
+
+.margin_new {
+    margin: 1.2rem;
+}
+
+.colorHi {
+    padding: 50px;
+}
+
+#center_second_box{
+    display: grid;
+    grid-template-columns: 30% 33% 30%;
+}
+
+.position_button {
+    display: flex;
+    justify-content: right;
+    margin-right: 3.2rem;
+}
+
+.position_box_region {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row-reverse;
+}
+
+.position_add {
+    display: grid;
+}
+
+.pos_add {
+    padding: 1rem;
+}
