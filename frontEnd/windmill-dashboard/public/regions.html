@@ -71,7 +71,7 @@
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                href="forms.html"
+                href="companies.html"
               >
                 <svg
                   class="w-5 h-5"
@@ -93,7 +93,7 @@
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                href="cards.html"
+                href="users.html"
               >
                 <svg
                   class="w-5 h-5"
@@ -119,7 +119,7 @@
               ></span>
               <a
                 class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
-                href="charts.html"
+                href="regions.html"
               >
                 <svg
                   class="w-5 h-5"
@@ -142,22 +142,20 @@
           </ul>
         </div>
       </aside>
-      
       <div class="flex flex-col flex-1">
         <main class="h-full pb-16 overflow-y-auto">
-          
-          <div class="position_button py-4 text-gray-500 dark:text-gray-400">
+          <div class="position_button text-gray-500 dark:text-gray-400">
             <a
               class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
-              href="./charts.html" class="margin_new px-6 my-6">
+              href="./regions.html" class="margin_new px-6 my-6">
               <button
+                id="btn_add_region"
                 class="margin_new items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
               >
                 Agregar región
               </button>
             </a>
           </div>
-          
           <div class="position_box_region px-6 mx-auto">
             <div class="position_box_region px-6 mx-auto">
               <!-- New Table -->
@@ -165,57 +163,33 @@
                 <div class="pos_add position_box_region overflow-x-auto">
                   <!-- las dos lineas de arriba mantienen sidebar -->
                   <table class="whitespace-no-wrap">
-                    <thead>
-                      <tr
-                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
-                      >
-                        <th class="px-4 py-3">■</th>
-                        <th class="px-4 py-3">Región</th>
-                      </tr>
-                    </thead>
+                    
                     <tbody
                       <!-- class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" esta linea permite un pading top para las sgtes lineas-->
                     >
                       <tr class="center_second_box text-gray-700 dark:text-gray-400">
                         
                         <td class="px-4 py-3 text-sm">
-                          <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
-                            <label class="custom-control-label" for="customCheck1"></label>
-                          </div>
-                          <td class="px-4 py-3">
                           <p class="font-semibold">Sur América</p>                          
                         </td>
-
                         <div class="position_add">
-                          <a href="./charts.html" class="px-6">
-                            <!-- class="px-6 my-6" -->
+                          <a href="./regions.html" class="px-6">
                             <button
+                              id="btn_add_country"
                               class="items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
                             >
                             Agregar País
                             </button>
                           </a>
-                        
-                          <!-- <a href="./forms.html" class="px-6">
-                            <button
-                              class="items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                            >
-                            Agregar Ciudad
-                            </button>
-                          </a> -->
                         </div>
                         
-                      </tr>
-                                         
+                      </tr>          
                     </tbody>
                   </table>
                 </div>
               </div>
-            </div>             
-
+            </div>  
           </div>
-
           <div class="position_box_region px-6 mx-auto">
             <div class="position_box_region px-6 mx-auto">
               <!-- New Table -->
@@ -223,58 +197,51 @@
                 <div class="pos_add position_box_region overflow-x-auto">
                   <!-- las dos lineas de arriba mantienen sidebar -->
                   <table class="whitespace-no-wrap">
-                    <thead>
-                      <tr
-                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
-                      >
-                        <th class="px-4 py-3">■</th>
-                        <th class="px-4 py-3">País</th>
-                      </tr>
-                    </thead>
                     <tbody
                       <!-- class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" esta linea permite un pading top para las sgtes lineas-->
                     >
                       <tr class="center_second_box text-gray-700 dark:text-gray-400">
-                        
                         <td class="px-4 py-3 text-sm">
-                          <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
-                            <label class="custom-control-label" for="customCheck1"></label>
-                          </div>
-                          <td class="px-4 py-3">
                           <p class="font-semibold">Colombia</p>                          
                         </td>
-
                         <div class="position_add">
-                          <a href="./charts.html" class="px-6">
-                            <!-- class="px-6 my-6" -->
+                          <a href="./regions.html" class="px-6">
                             <button
+                              id="btn_add_city"
                               class="items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
                             >
                             Agregar Ciudad
                             </button>
                           </a>
-                        
-                          <!-- <a href="./forms.html" class="px-6">
+                        </div>
+                        <div class="position_add">
+                          <a href="./regions.html" class="px-6">
                             <button
+                              id="btn_delete_country"
                               class="items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
                             >
-                            Agregar Ciudad
+                            Eliminar
                             </button>
-                          </a> -->
+                          </a>
                         </div>
-                        
-                      </tr>
-                                         
+                        <div>
+                          <a href="./regions.html" class="px-6">
+                            <!-- class="px-6 my-6" -->
+                            <button
+                              id="btn_edit_country"
+                              class="items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                            >
+                            Editar
+                            </button>
+                          </a>
+                        </div>
+                      </tr>                                         
                     </tbody>
                   </table>
                 </div>
               </div>
-            </div>             
-
-          </div>       
-          
-          
+            </div>         
+          </div>         
           <div class="position_box_region px-6 mx-auto">
             <div class="position_box_region px-6 mx-auto">
               <!-- New Table -->
@@ -282,54 +249,45 @@
                 <div class="pos_add position_box_region overflow-x-auto">
                   <!-- las dos lineas de arriba mantienen sidebar -->
                   <table class="whitespace-no-wrap">
-                    <thead>
-                      <tr
-                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
-                      >
-                        <th class="px-4 py-3">■</th>
-                        <th class="px-4 py-3">Ciudad</th>
-                      </tr>
-                    </thead>
                     <tbody
                       <!-- class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" esta linea permite un pading top para las sgtes lineas-->
                     >
                       <tr class="center_second_box text-gray-700 dark:text-gray-400">
-                        
                         <td class="px-4 py-3 text-sm">
-                          <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
-                            <label class="custom-control-label" for="customCheck1"></label>
-                          </div>
-                          <td class="px-4 py-3">
-                          <p class="font-semibold">Bogota</p>                          
-                        </td>
-                        
-                      </tr>
-
-                                                               
+                          <p class="font-semibold">Bogotá</p>                          
+                        </td>                        
+                      </tr>   
+                      <div class="position_add">
+                        <a href="./regions.html" class="px-6">
+                          <!-- class="px-6 my-6" -->
+                          <button
+                            id="btn_delete_city"
+                            class="items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                          >
+                          Eliminar
+                          </button>
+                        </a>
+                      </div>
+                      <div>
+                        <a href="./regions.html" class="px-6">
+                          <!-- class="px-6 my-6" -->
+                          <button
+                            id="btn_edit_city"
+                            class="items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                          >
+                          Editar
+                          </button>
+                        </a>
+                      </div>  
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>             
-
           </div> 
-
-          <div class="position_button position_add">
-            <a href="./charts.html" class="px-6">
-              <!-- class="px-6 my-6" -->
-              <button
-                class="items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-              >
-              Guardar registro
-              </button>
-            </a>
           
-          </div>
-
         </main>
-      </div>
-        
+      </div>        
     </div>
   </body>
 </html>

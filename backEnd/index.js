@@ -145,7 +145,7 @@ server.delete('/users/:id', authorization_Admin, async (req, res) => {
     .catch(error => res.status(500).send(error))
 });
 
-server.get("/users/login", function (req, res) {
+server.post("/users/login", function (req, res) {
     const {
         email, password
     } = req.body
