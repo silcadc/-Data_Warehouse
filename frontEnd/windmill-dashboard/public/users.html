@@ -10,6 +10,7 @@
     />
     
     <link rel="stylesheet" href="./assets/css/tailwind.output.css" />
+    <link rel="stylesheet" href="./assets/css/stylesNew.css" />
     <script
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
       defer
@@ -150,9 +151,10 @@
           <div 
             id="delete_newUser"
             class="px-6 my-6">
-            <a href="./users.html">
-              <button
-                class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+            <a>
+              <button 
+                id="btn_delete_user"
+                class="off flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
               >
                 Eliminar usuario
               </button>
@@ -175,10 +177,11 @@
                       >
                         <th class="px-4 py-3">
                           <div 
-                            id="check_box_general_user"
                             class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
-                            <label class="custom-control-label" for="customCheck1"></label>
+                            <input 
+                              id="check_box_general_user"
+                              type="checkbox" class="custom-control-input" id="customCheck">
+                            <label class="custom-control-label" for="customCheck"></label>
                           </div>
                         </th>
                         <th class="px-4 py-3">Nombre</th>
@@ -189,64 +192,8 @@
                         <th class="px-4 py-3">Contraseña</th>
                       </tr>
                     </thead>
-                    <tbody
-                      <!-- class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" -->
-                    >
+                    <tbody id="container_users">
                       <tr class="text-gray-700 dark:text-gray-400">
-                        
-                        <td class="px-4 py-3 text-sm">
-                          <div 
-                            id="check_box_user"
-                            class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
-                            <label class="custom-control-label" for="customCheck1"></label>
-                          </div>
-                          <td class="px-4 py-3">
-                          <div class="flex items-center text-sm">
-                            <!-- Avatar with inset shadow -->
-                            <div
-                              class="relative hidden w-8 h-8 mr-3 rounded-full md:block"
-                            >
-                              <img
-                                class="object-cover w-full h-full rounded-full"
-                                src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                                alt=""
-                                loading="lazy"
-                              />
-                              <div
-                                class="absolute inset-0 rounded-full shadow-inner"
-                                aria-hidden="true"
-                              ></div>
-                            </div>
-                            <div>
-                              <p class="font-semibold">Hans</p>
-                              <!-- <p class="text-xs text-gray-600 dark:text-gray-400">
-                                10x Developer
-                              </p> -->
-                            </div>
-                          </div>
-                        </td>
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                          Burger
-                        </td>
-                        
-                        <td class="px-4 py-3 text-xs">
-                          <span
-                            class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
-                          >
-                            hburguer@gmail.com
-                          </span>
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                          Developer
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                          basico
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                          123456
-                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -258,4 +205,5 @@
       </div>
     </div>
   </body>
+  <script src="../public/assets/js/script_users.js"></script>
 </html>

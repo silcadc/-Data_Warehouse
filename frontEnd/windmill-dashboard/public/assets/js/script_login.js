@@ -23,7 +23,8 @@ const login = (e) => {
         return response.json();
     })//Se recibe la respuesta como una promesa
     .then(token => { //Se lee la respuesta, siendo solo el token
-        localStorage.setItem('sesionToken', `Bearer ${token}`);
+        console.log(token.token)
+        localStorage.setItem('sesionToken', `Bearer ${token.token}`);
         window.location.href = '../public/contacts.html';
     })
     .catch((error)=>{

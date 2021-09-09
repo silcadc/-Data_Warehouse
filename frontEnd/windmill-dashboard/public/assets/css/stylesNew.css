@@ -46,3 +46,11 @@
 .pos_add {
     padding: 1rem;
 }
+
+.off {
+    display: none;
+}
+
+.on {
+    display: block;
+}
