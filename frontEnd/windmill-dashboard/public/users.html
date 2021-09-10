@@ -139,15 +139,16 @@
               </button>
             </a>
           </div>  
-          <div class="px-6 my-6">
+          <!-- <div class="px-6 my-6">
             <a href="../public/pages/createUser.html">
               <button
-                class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                id="btn_update_user"
+                class="off flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
               >
                 Actualizar usuario
               </button>
             </a>
-          </div> 
+          </div>  -->
           <div 
             id="delete_newUser"
             class="px-6 my-6">
@@ -173,7 +174,8 @@
                   <table class="w-full whitespace-no-wrap">
                     <thead>
                       <tr
-                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+                        <!-- class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800" -->
+                        <!-- con la linea de arriba controlo el margen superior de la tabla de usuarios presentada en el browser -->
                       >
                         <th class="px-4 py-3">
                           <div 
@@ -187,9 +189,10 @@
                         <th class="px-4 py-3">Nombre</th>
                         <th class="px-4 py-3">Apellido</th>
                         <th class="px-4 py-3">Email</th>
-                        <th class="px-4 py-3">Cargo</th>
                         <th class="px-4 py-3">Perfil</th>
+                        <th class="px-4 py-3">Tipo</th>
                         <th class="px-4 py-3">Contraseña</th>
+                        <th class="px-4 py-3">Acciones</th>
                       </tr>
                     </thead>
                     <tbody id="container_users">

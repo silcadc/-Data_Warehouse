@@ -3,7 +3,7 @@ CREATE TABLE `users` (
   `name` varchar(45) DEFAULT NULL,
   `lastname` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
-  `cargo` varchar(45) DEFAULT NULL,
+  `profile` varchar(45) DEFAULT NULL,
   `is_admin` tinyint DEFAULT NULL,
   `password` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
@@ -53,7 +53,7 @@ CREATE TABLE `contacts` (
   `company_id` int DEFAULT NULL,
   `city_id` int DEFAULT NULL,
   `address` varchar(45) DEFAULT NULL,
-  `cargo` varchar(45) DEFAULT NULL,
+  `profile` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`contact_id`),
   KEY `FK_company_contacts_idx` (`company_id`),
   KEY `FK_city_contacts_idx` (`city_id`),

@@ -32,9 +32,11 @@ server.use(limiter);
 const authorization_Admin = (req, res, next) => {
     try {
         const encryptedToken = req.headers.authorization.split(" ")[1];
+        console.log(encryptedToken)
         const verify_Token = jwt.verify(encryptedToken, jwtClave);
-        if(verify_Token){
-            req.dataUser = verify_Token;
+        console.log(verify_Token)
+        if(verify_Token){//si verify_token trae algo, guardelo en req.dataUser
+            req.dataUser = verify_Token;//req. es necesario y dataUser es el nombre que yo le asigne
             return next();
         }
     } catch (err) {
@@ -43,7 +45,39 @@ const authorization_Admin = (req, res, next) => {
 };
 
 //USERS
+server.post("/users/login", function (req, res) {
+    const {
+        email, password
+    } = req.body
+    sequelize.query(
+        `SELECT * FROM users WHERE email = '${email}' AND password = '${password}'`,
+        {        
+            type: sequelize.QueryTypes.SELECT
+        }
+    )
+    .then(function (user) {
+        if (user.length === 0){
+            return res.status(400).send("user not found")
+        }
+        let res_idUser = user[0].user_id;
+        let res_is_admin = user[0].is_admin;
+        //creation of the token to pass
+        let token = jwt.sign({
+            user_id: res_idUser,
+            is_admin: Boolean(res_is_admin)
+        }, jwtClave);
+        let sesionToken = {
+            token: token
+        }   
+        res.status(200).send(sesionToken);
+    })
+    .catch(function (error) {
+        res.status(500).send(error)
+    })
+});
+
 server.get('/users', authorization_Admin, async function (req, res) {
+    console.log(req.dataUser)
     let id_user = req.dataUser.user_id
     let sqlquery = 'SELECT * FROM users'
     let is_admin = req.dataUser.is_admin
@@ -82,8 +116,8 @@ server.post('/users', authorization_Admin, async (req, res) => {
 
 server.put('/users/:id', authorization_Admin, async (req, res) => {
     let id_user = req.params.id;
-    let is_admin_UserData = req.userData.is_admin
-    if (is_admin_UserData === false){
+    let is_admin_dataUser = req.dataUser.is_admin
+    if (is_admin_dataUser === false){
         return res.status(401).send('You are not authorized to make modifications')
     }      
     const {
@@ -106,8 +140,8 @@ server.put('/users/:id', authorization_Admin, async (req, res) => {
 
 server.patch('/users/:id', authorization_Admin, async (req, res) => {
     let id_user = req.params.id;
-    let is_admin_UserData = req.userData.is_admin
-    if (is_admin_UserData === false){
+    let is_admin_dataUser = req.dataUser.is_admin
+    if (is_admin_dataUser === false){
         return res.status(401).send('You are not authorized to make modifications')
     }      
     const {
@@ -128,7 +162,7 @@ server.patch('/users/:id', authorization_Admin, async (req, res) => {
 });
 
 server.delete('/users/:id', authorization_Admin, async (req, res) => {
-    let is_admin = req.userData.is_admin
+    let is_admin = req.dataUser.is_admin
     if (is_admin === false){
        return res.status(401).send('You are not authorized to delete users')
     }    
@@ -143,37 +177,6 @@ server.delete('/users/:id', authorization_Admin, async (req, res) => {
         res.status(200).send("user deleted successfully")
     })
     .catch(error => res.status(500).send(error))
-});
-
-server.post("/users/login", function (req, res) {
-    const {
-        email, password
-    } = req.body
-    sequelize.query(
-        `SELECT * FROM users WHERE email = '${email}' AND password = '${password}'`,
-        {        
-            type: sequelize.QueryTypes.SELECT
-        }
-    )
-    .then(function (user) {
-        if (user.length === 0){
-            return res.status(400).send("user not found")
-        }
-        let res_idUser = user[0].user_id;
-        let res_is_admin = user[0].is_admin;
-        //creation of the token to pass
-        let token = jwt.sign({
-            user_id: res_idUser,
-            is_admin: Boolean(res_is_admin)
-        }, jwtClave);
-        let sesionToken = {
-            token: token
-        }   
-        res.status(200).send(sesionToken);
-    })
-    .catch(function (error) {
-        res.status(500).send(error)
-    })
 });
 
 //REGIONS
