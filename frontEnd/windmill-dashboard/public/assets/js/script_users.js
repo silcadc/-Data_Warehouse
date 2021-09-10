@@ -97,17 +97,25 @@ function getUsers () {
             //child of tr_user, also sibling of td_child_check_box, td_child_name, td_child_lastName, td_child_email, td_child_position, td_child_tipo and td_child_action
             const td_child_action = document.createElement("td");
             td_child_action.setAttribute("class", "flex items-center text-sm");//flex items-center text-sm
-            //child of td_child_action //px-4 py-3 text-sm
+        //child of td_child_action //px-4 py-3 text-sm
             const div_child_action_one = document.createElement("div");
             div_child_action_one.setAttribute("class", "relative hidden w-8 h-8 mr-3 rounded-full md:block");
             //children of div_child_action_one
+            const a_child_one = document.createElement("a");
+            //children of a_child_one
+            const btn_child_one = document.createElement("button");
+            //children of btn_child_one
             const img_div_one = document.createElement("img");
             img_div_one.setAttribute("class", "object-cover w-full h-full rounded-full");
             img_div_one.setAttribute("src", "../public/assets/img/icons8-edit-24-white.png");
-            //child of td_child_action
+        //child of td_child_action
             const div_child_action_two = document.createElement("div");
             div_child_action_two.setAttribute("class", "relative hidden w-8 h-8 mr-3 rounded-full md:block");
             //children of div_child_action_two
+            const a_child_two = document.createElement("a");
+            //children of a_child_two
+            const btn_child_two = document.createElement("button");
+            //children of btn_child_two
             const img_div_two = document.createElement("img");
             img_div_two.setAttribute("class", "object-cover w-full h-full rounded-full");
             img_div_two.setAttribute("src", "../public/assets/img/icons8-delete-64-white.png");
@@ -137,10 +145,14 @@ function getUsers () {
             tr_user.appendChild(td_child_password);
             tr_user.appendChild(td_child_action);
             td_child_action.appendChild(div_child_action_one);
-            div_child_action_one.appendChild(img_div_one);
+            div_child_action_one.appendChild(a_child_one);
+            a_child_one.appendChild(btn_child_one);
+            btn_child_one.appendChild(img_div_one);
             td_child_action.appendChild(div_child_action_two);
-            div_child_action_two.appendChild(img_div_two);
-            
+            div_child_action_two.appendChild(a_child_two);
+            a_child_two.appendChild(btn_child_two);
+            btn_child_two.appendChild(img_div_two);
+
             /*-----------------------*/
             /*     select a user    */
             /*----------------------*/
@@ -153,12 +165,25 @@ function getUsers () {
                 btn_update_user.classList.add("on")
             })
 
-            /*---------------------------*/
-            /*     select some action    */
-            /*---------------------------*/
-            div_child_action_one.addEventListener("click", () =>{
-                console.log(user)
-            })
+            /*--------------------------------*/
+            /*     delete a user by actions   */
+            /*--------------------------------*/
+            btn_child_two.addEventListener("click", () =>{
+                let id_user_to_delete = user.user_id
+
+                fetch('http://localhost:3001/users/'+ id_user_to_delete, {
+                method: 'DELETE',
+                headers: new Headers ({
+                    'Authorization': token,
+                    'Content-Type': 'application/json'
+                }) 
+                })
+                .then (response => {
+                    response.json()
+                    location.reload()
+                })
+                .catch (error => console.log('No puede eliminar el usuario ' + error))
+                })
         })        
     })
 }
@@ -176,7 +201,6 @@ check_box_general_users.addEventListener("click", () => {
 /*------------------- --*/
 function getCheckedIDs() {
     let elements = document.getElementsByTagName("INPUT");
-    
     let checkedArray =  new Array();//similar to array[];
     for(let i=0;i<elements.length;i++)
     {

@@ -457,11 +457,11 @@ server.get('/contacts', async function (req, res) {
 
 server.post('/contacts', async (req, res) => {  
     const {
-        name, lastname, email, company_id, city_id, address, profile
+        name, email, company_id, city_id, address, profile
     } = req.body
-    let contactsInfo = [name, lastname, email, company_id, city_id, address, profile];
+    let contactsInfo = [name, email, company_id, city_id, address, profile];
     await sequelize.query(
-        'INSERT INTO contacts (`name`, `lastname`, `email`, `company_id`, `city_id`, `address`, `profile`) VALUES(?, ?, ?, ?, ?, ?, ?)',
+        'INSERT INTO contacts (`name`, `email`, `company_id`, `city_id`, `address`, `profile`) VALUES(?, ?, ?, ?, ?, ?)',
         {
             replacements: contactsInfo,
             type: sequelize.QueryTypes.INSERT
@@ -476,11 +476,11 @@ server.post('/contacts', async (req, res) => {
 server.put('/contacts/:id', async (req, res) => {
     let id_contact = req.params.id;     
     const {
-        name, lastname, email, company_id, city_id, address, profile
+        name, email, company_id, city_id, address, profile
     } = req.body
-    let contactsInfo = [name, lastname, email, company_id, city_id, address, profile, id_contact];
+    let contactsInfo = [name, email, company_id, city_id, address, profile, id_contact];
     await sequelize.query(
-        'UPDATE contacts SET `name`= ?, `lastname`= ?, `email`= ?, `company_id`= ?, `city_id`= ?, `address`= ?, `profile`= ? WHERE contact_id = ?',
+        'UPDATE contacts SET `name`= ?, `email`= ?, `company_id`= ?, `city_id`= ?, `address`= ?, `profile`= ? WHERE contact_id = ?',
         {
             replacements: contactsInfo,
             type: sequelize.QueryTypes.UPDATE
