@@ -88,6 +88,11 @@ function getUsers () {
             const td_child_tipo = document.createElement("td");
             td_child_tipo.setAttribute("class", "px-4 py-3 text-sm");
             td_child_tipo.textContent = user.is_admin
+            if (user.is_admin === 1) {
+                td_child_tipo.textContent = "Admin"
+            } else {
+                td_child_tipo.textContent = "Basico"
+            }
     
             //child of tr_user, also sibling of td_child_check_box, td_child_name, td_child_lastName, td_child_email, td_child_position and td_child_tipo
             const td_child_password = document.createElement("td");
@@ -160,9 +165,6 @@ function getUsers () {
             check_box_user.addEventListener("click", () =>{
                 btn_delete_user.classList.remove("off")
                 btn_delete_user.classList.add("on")  
-
-                btn_update_user.classList.remove("off")
-                btn_update_user.classList.add("on")
             })
 
             /*--------------------------------*/

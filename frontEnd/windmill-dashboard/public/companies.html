@@ -9,6 +9,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./assets/css/tailwind.output.css" />
+    <link rel="stylesheet" href="./assets/css/stylesNew.css" />
     <script
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
       defer
@@ -131,26 +132,27 @@
           <div 
             id="add_company"  
             class="px-6 my-6">
-            <a href="./pages/createCompany.html">
+            <a 
+              href="./pages/createCompany.html">
               <button
                 class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
               >
                 Agregar compañía
+                <span class="ml-2" aria-hidden="true"></span>
               </button>
             </a>
           </div>
           
-          <!-- <div 
-            id="delete_company"
+          <div 
             class="px-6 my-6">
-            <a href="./companies.html">
-              <button
-                class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-              >
-                Eliminar compañía
-              </button>
-            </a>
-          </div> -->
+            <button
+              id="btn_delete_companies"
+              class="off flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+            >
+              Eliminar compañía
+              <span class="ml-2" aria-hidden="true"></span>
+            </button>
+          </div>
         </div>
       </aside>
       
@@ -171,12 +173,12 @@
                           <div 
                             id="check_box_general_companies"
                             class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
+                            <input type="checkbox" class="custom-control-input" id="customCheck1">
                             <label class="custom-control-label" for="customCheck1"></label>
                           </div>
                         </th>
-                        <th class="px-4 py-3">Nombre</th>
-                        <th class="px-4 py-3">País</th>
+                        <th class="px-4 py-3">Compañias</th>
+                        <th class="px-4 py-3">País / Región</th>
                         <th class="px-4 py-3">Ciudad</th>
                         <th class="px-4 py-3">Dirección</th>
                         <th class="px-4 py-3">Email</th>
@@ -185,6 +187,7 @@
                       </tr>
                     </thead>
                     <tbody
+                      id="container_companies"
                       <!-- class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" esta linea permite un pading top para las sgtes lineas-->
                     >
                       <tr class="text-gray-700 dark:text-gray-400">
@@ -193,7 +196,7 @@
                           <div 
                             id="check_box_company"
                             class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
+                            <input type="checkbox" class="custom-control-input" id="customCheck1">
                             <label class="custom-control-label" for="customCheck1"></label>
                           </div>
                           <td class="px-4 py-3">
@@ -260,4 +263,5 @@
       </div>
     </div>
   </body>
+  <script src="../public/assets/js/script_companies.js"></script>
 </html>

@@ -378,7 +378,19 @@ server.delete('/cities/:id', async (req, res) => {
 //COMPANIES
 server.get('/companies', async function (req, res) {
     await sequelize.query(
-        'SELECT * FROM companies',
+        `SELECT 
+            data_warehouse.companies.company_id,
+            data_warehouse.companies.name,
+            data_warehouse.companies.telephone,
+            data_warehouse.companies.email,
+            data_warehouse.companies.address,
+            data_warehouse.cities.name AS "city",
+            data_warehouse.countries.name AS "country",
+            data_warehouse.regions.name AS "region"
+            FROM data_warehouse.companies
+            INNER JOIN data_warehouse.cities ON data_warehouse.cities.city_id = data_warehouse.companies.city_id
+            INNER JOIN data_warehouse.countries ON data_warehouse.countries.country_id = data_warehouse.cities.country_id
+            INNER JOIN data_warehouse.regions ON data_warehouse.regions.region_id = data_warehouse.countries.region_id`,
         {        
             type: sequelize.QueryTypes.SELECT
         }
@@ -444,7 +456,23 @@ server.delete('/companies/:id', async (req, res) => {
 //CONTACTS
 server.get('/contacts', async function (req, res) {
     await sequelize.query(
-        'SELECT * FROM contacts',
+        `SELECT 
+            data_warehouse.contacts.contact_id,
+            data_warehouse.contacts.name,
+            data_warehouse.contacts.lastname,
+            data_warehouse.contacts.email,
+            data_warehouse.contacts.address,
+            data_warehouse.contacts.profile,
+            data_warehouse.contacts.interests,
+            data_warehouse.companies.name AS 'company',
+            data_warehouse.cities.name AS 'city',
+            data_warehouse.countries.name AS 'country',
+            data_warehouse.regions.name AS 'region'
+            FROM data_warehouse.contacts 
+            INNER JOIN data_warehouse.companies ON data_warehouse.contacts.company_id = data_warehouse.companies.company_id
+            INNER JOIN data_warehouse.cities ON data_warehouse.contacts.city_id = data_warehouse.cities.city_id
+            INNER JOIN data_warehouse.countries ON data_warehouse.countries.country_id = data_warehouse.cities.country_id
+            INNER JOIN data_warehouse.regions ON data_warehouse.regions.region_id = data_warehouse.countries.region_id`,
         {        
             type: sequelize.QueryTypes.SELECT
         }
@@ -457,11 +485,11 @@ server.get('/contacts', async function (req, res) {
 
 server.post('/contacts', async (req, res) => {  
     const {
-        name, email, company_id, city_id, address, profile
+        name, lastname, email, company_id, city_id, address, profile, intereses
     } = req.body
-    let contactsInfo = [name, email, company_id, city_id, address, profile];
+    let contactsInfo = [name, lastname, email, company_id, city_id, address, profile, intereses];
     await sequelize.query(
-        'INSERT INTO contacts (`name`, `email`, `company_id`, `city_id`, `address`, `profile`) VALUES(?, ?, ?, ?, ?, ?)',
+        'INSERT INTO contacts (`name`, `lastname`, `email`, `company_id`, `city_id`, `address`, `profile`, `interests`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)',
         {
             replacements: contactsInfo,
             type: sequelize.QueryTypes.INSERT
@@ -476,11 +504,11 @@ server.post('/contacts', async (req, res) => {
 server.put('/contacts/:id', async (req, res) => {
     let id_contact = req.params.id;     
     const {
-        name, email, company_id, city_id, address, profile
+        name, lastname, email, company_id, city_id, address, profile, intereses
     } = req.body
-    let contactsInfo = [name, email, company_id, city_id, address, profile, id_contact];
+    let contactsInfo = [name, lastname, email, company_id, city_id, address, profile, intereses, id_contact];
     await sequelize.query(
-        'UPDATE contacts SET `name`= ?, `email`= ?, `company_id`= ?, `city_id`= ?, `address`= ?, `profile`= ? WHERE contact_id = ?',
+        'UPDATE contacts SET `name`= ?, `lastname`= ?, `email`= ?, `company_id`= ?, `city_id`= ?, `address`= ?, `profile`= ?, `interests`=? WHERE contact_id = ?',
         {
             replacements: contactsInfo,
             type: sequelize.QueryTypes.UPDATE
