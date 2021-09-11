@@ -96,6 +96,22 @@ server.get('/users', authorization_Admin, async function (req, res) {
     .catch(error => console.log(error))
 });
 
+//nuevo endoint, necesario para la actualizacion de los usuarios mediante id
+server.get('/users/:id', authorization_Admin, async function (req, res) {
+    let id_user = req.params.id
+    let sqlquery = `SELECT * FROM users WHERE user_id = ${id_user}`
+    await sequelize.query(
+        sqlquery,
+        {        
+            type: sequelize.QueryTypes.SELECT
+        }
+    )
+    .then(function (users) {
+        res.status(200).send(users);
+    })
+    .catch(error => console.log(error))
+});
+
 server.post('/users', authorization_Admin, async (req, res) => {
     const {
        name, lastname, email, profile, is_admin, password
@@ -478,16 +494,53 @@ server.get('/contacts', async function (req, res) {
         }
     )
     .then(function (contacts) {
+        console.log(contacts)
         res.status(200).send(contacts);
     })
     .catch(error => console.error(error))
 });
 
+// server.post('/contacts', async (req, res) => {  
+//     const {
+//         name, lastname, email, address, profile, interests, company, city, country, region
+//     } = req.body
+//     let contactsInfo = [name, lastname, email, address, profile, interests, company, city, country, region];
+//     console.log(contactsInfo)
+//     await sequelize.query(
+//         `SELECT
+//             data_warehouse.contacts.contact_id,
+//             data_warehouse.contacts.name,
+//             data_warehouse.contacts.lastname,
+//             data_warehouse.contacts.email,
+//             data_warehouse.contacts.address,
+//             data_warehouse.contacts.profile,
+//             data_warehouse.contacts.interests,    
+//             data_warehouse.companies.name AS "company",
+//             data_warehouse.cities.name AS "city",
+//             data_warehouse.countries.name AS "country",
+//             data_warehouse.regions.name AS "region"
+//             FROM data_warehouse.contacts
+//             INNER JOIN data_warehouse.companies ON data_warehouse.companies.company_id = data_warehouse.contacts.company_id
+//             INNER JOIN data_warehouse.cities ON data_warehouse.cities.city_id = data_warehouse.contacts.city_id
+//             INNER JOIN data_warehouse.countries ON data_warehouse.countries.country_id = data_warehouse.cities.country_id
+//             INNER JOIN data_warehouse.regions ON data_warehouse.regions.region_id = data_warehouse.countries.region_id`,
+//         {
+//             replacements: contactsInfo,
+//             type: sequelize.QueryTypes.INSERT
+//         }
+//     )
+//     .then(function (contacts) {
+//         res.status(200).send("contacts added successfully")
+//     })
+//     .catch(error => res.status(500).send(error))
+// });
+
+//POST ORIGINAL
 server.post('/contacts', async (req, res) => {  
     const {
-        name, lastname, email, company_id, city_id, address, profile, intereses
+        name, lastname, email, company_id, city_id, address, profile, interests
     } = req.body
-    let contactsInfo = [name, lastname, email, company_id, city_id, address, profile, intereses];
+    let contactsInfo = [name, lastname, email, company_id, city_id, address, profile, interests];
     await sequelize.query(
         'INSERT INTO contacts (`name`, `lastname`, `email`, `company_id`, `city_id`, `address`, `profile`, `interests`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)',
         {
@@ -500,13 +553,13 @@ server.post('/contacts', async (req, res) => {
     })
     .catch(error => res.status(500).send(error))
 });
-
+//
 server.put('/contacts/:id', async (req, res) => {
     let id_contact = req.params.id;     
     const {
-        name, lastname, email, company_id, city_id, address, profile, intereses
+        name, lastname, email, company_id, city_id, address, profile, interests
     } = req.body
-    let contactsInfo = [name, lastname, email, company_id, city_id, address, profile, intereses, id_contact];
+    let contactsInfo = [name, lastname, email, company_id, city_id, address, profile, interests, id_contact];
     await sequelize.query(
         'UPDATE contacts SET `name`= ?, `lastname`= ?, `email`= ?, `company_id`= ?, `city_id`= ?, `address`= ?, `profile`= ?, `interests`=? WHERE contact_id = ?',
         {

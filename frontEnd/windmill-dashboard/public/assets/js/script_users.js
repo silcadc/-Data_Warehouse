@@ -4,7 +4,6 @@ let btn_delete_user = document.getElementById("btn_delete_user");
 let btn_update_user = document.getElementById("btn_update_user");
 
 let token = localStorage.getItem("sesionToken")
-console.log(token)
 
 /*----------------------------*/
 /*       registered users     */
@@ -107,6 +106,7 @@ function getUsers () {
             div_child_action_one.setAttribute("class", "relative hidden w-8 h-8 mr-3 rounded-full md:block");
             //children of div_child_action_one
             const a_child_one = document.createElement("a");
+            //a_child_one.setAttribute("href", "../public/pages/createUser.html");
             //children of a_child_one
             const btn_child_one = document.createElement("button");
             //children of btn_child_one
@@ -174,18 +174,27 @@ function getUsers () {
                 let id_user_to_delete = user.user_id
 
                 fetch('http://localhost:3001/users/'+ id_user_to_delete, {
-                method: 'DELETE',
-                headers: new Headers ({
-                    'Authorization': token,
-                    'Content-Type': 'application/json'
-                }) 
+                    method: 'DELETE',
+                    headers: new Headers ({
+                        'Authorization': token,
+                        'Content-Type': 'application/json'
+                    }) 
                 })
                 .then (response => {
                     response.json()
                     location.reload()
                 })
                 .catch (error => console.log('No puede eliminar el usuario ' + error))
-                })
+            })
+
+            /*-----------------------*/
+            /*      edit a user      */
+            /*-----------------------*/
+            btn_child_one.addEventListener("click", () =>{
+                let id_user_to_edit = user.user_id
+                localStorage.setItem("id_user_to_edit", id_user_to_edit)                    
+                window.location.href = '../public/pages/createUser.html'
+            })
         })        
     })
 }
@@ -214,6 +223,28 @@ function getCheckedIDs() {
     console.log(checkedArray)
     return checkedArray;
 }
+
+btn_delete_user.addEventListener("click", () => {
+    let arrayCheckbox = getCheckedIDs();
+    let promises = [];
+    arrayCheckbox.forEach(id => {
+        let id_for_delete = id.split('_')[1]   
+        promises.push(
+            fetch('http://localhost:3001/users/'+ id_for_delete, {
+            method: 'DELETE',
+            headers: new Headers ({
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            }) 
+            })
+            .then (response => response.json())
+            .catch (error => console.log('No puede eliminar el usuario ' + error))
+        )
+    })
+    Promise.all(promises)
+    .then( response => location.reload()) 
+});
+
 
 btn_delete_user.addEventListener("click", () => {
     let arrayCheckbox = getCheckedIDs();

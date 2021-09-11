@@ -99,3 +99,6 @@ CREATE TABLE `data_warehouse`.`prefe_cont_chann` (
     ON UPDATE NO ACTION
 );
 
+
+
+

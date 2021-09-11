@@ -7,17 +7,17 @@ let check_box_isAdmin = document.getElementById("customCheck1");
 let password_newUser = document.getElementById("password_newUser");
 let repeat_pass_newUser = document.getElementById("repeat_pass_newUser");
 let add_newUser = document.getElementById("add_newUser");
+
 let delete_newUser = document.getElementById("delete_newUser");
 
 let token = localStorage.getItem("sesionToken")
-console.log(token)
+let id_user_to_edit = localStorage.getItem("id_user_to_edit")
+console.log(id_user_to_edit)
 
-/*----------------------*/
-/*     create users     */
-/*------------------- --*/
-add_newUser.addEventListener("click", () => {
-    console.log(check_box_isAdmin.value)
-    console.log(profile_newUser.value)
+/*----------------------------------*/
+/*     create new user function     */
+/*----------------------------------*/
+function add_new_user () {
     let is_admin = false;
     if (check_box_isAdmin.checked) {
         is_admin = true;
@@ -46,4 +46,80 @@ add_newUser.addEventListener("click", () => {
     } else {
         alert("No coinciden las contraseñas")
     }
+}
+
+/*---------------------------------*/
+/*     performans by old users     */
+/*---------------------------------*/
+fetch('http://localhost:3001/users/'+ id_user_to_edit, {
+    method: 'GET',
+    headers: new Headers ({
+        'Authorization': token,
+        'Content-Type': 'application/json'
+    }) 
 })
+.then (response => response.json())
+.then (response => {
+    console.log(response)
+    name_newUser.value = response[0].name
+    lastname_newUser.value = response[0].lastname
+    email_newUser.value = response[0].email
+    profile_newUser.value = response[0].profile
+    check_box_isAdmin.value = response[0].is_admin
+    console.log(response[0].is_admin)
+    if (check_box_isAdmin.value === '1'){
+        check_box_isAdmin.checked = true;
+    } else {
+        check_box_isAdmin.checked = false;
+    }
+    password_newUser.value = response[0].password
+    repeat_pass_newUser.value = response[0].password
+})
+.catch (error => console.log('No puede editar el usuario ' + error))
+
+/*---------------------------------*/
+/*     edit old users function     */
+/*---------------------------------*/
+function update_old_user () {
+    // let is_admin = false;
+    // if (check_box_isAdmin.checked) {
+    //     is_admin = true;
+    // }
+    fetch('http://localhost:3001/users', {
+        method: 'PUT',
+        headers: new Headers ({
+            'Authorization': token,
+            'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify({
+            'name': name_newUser.value, 
+            'lastname': lastname_newUser.value, 
+            'email': email_newUser.value, 
+            'profile': profile_newUser.value,  
+            'is_admin': is_admin,  
+            'password': password_newUser.value
+        })
+    })
+    //.then (response => response.json())este json era un problema, enviaba datos undefined
+    .then (response => { 
+        location.href = '../users.html'
+    })
+    .catch (error => console.log("error al crear usuario" + error) )
+   
+
+}
+
+
+/*------------------------------*/
+/*     create or edit users     */
+/*------------------------------*/
+add_newUser.addEventListener("click", () => {
+    if(!id_user_to_edit) {
+        add_new_user();
+    } else {
+        update_old_user();
+    }
+});
+
+
+
