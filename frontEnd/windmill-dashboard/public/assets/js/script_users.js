@@ -19,9 +19,7 @@ function getUsers () {
     })
     .then (response => response.json())
     .then (response => {
-        console.log(response)
         response.forEach(user => {
-            console.log(user)
             const tr_user = document.createElement("tr")
             tr_user.setAttribute("class", "text-gray-700 dark:text-gray-400");
             //child of tr_user

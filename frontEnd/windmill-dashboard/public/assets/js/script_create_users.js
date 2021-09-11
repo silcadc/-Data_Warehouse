@@ -12,7 +12,8 @@ let delete_newUser = document.getElementById("delete_newUser");
 
 let token = localStorage.getItem("sesionToken")
 let id_user_to_edit = localStorage.getItem("id_user_to_edit")
-console.log(id_user_to_edit)
+localStorage.setItem("id_user_to_edit", "")  
+
 
 /*----------------------------------*/
 /*     create new user function     */
@@ -40,7 +41,7 @@ function add_new_user () {
         })
         //.then (response => response.json())este json era un problema, enviaba datos undefined
         .then (response => { 
-            location.href = '../users.html'
+           location.href = '../users.html'
         })
         .catch (error => console.log("error al crear usuario" + error) )
     } else {
@@ -51,41 +52,48 @@ function add_new_user () {
 /*---------------------------------*/
 /*     performans by old users     */
 /*---------------------------------*/
-fetch('http://localhost:3001/users/'+ id_user_to_edit, {
-    method: 'GET',
-    headers: new Headers ({
-        'Authorization': token,
-        'Content-Type': 'application/json'
-    }) 
-})
-.then (response => response.json())
-.then (response => {
-    console.log(response)
-    name_newUser.value = response[0].name
-    lastname_newUser.value = response[0].lastname
-    email_newUser.value = response[0].email
-    profile_newUser.value = response[0].profile
-    check_box_isAdmin.value = response[0].is_admin
-    console.log(response[0].is_admin)
-    if (check_box_isAdmin.value === '1'){
-        check_box_isAdmin.checked = true;
-    } else {
-        check_box_isAdmin.checked = false;
-    }
-    password_newUser.value = response[0].password
-    repeat_pass_newUser.value = response[0].password
-})
-.catch (error => console.log('No puede editar el usuario ' + error))
+function old_user_show () {
+    fetch('http://localhost:3001/users/'+ id_user_to_edit, {
+        method: 'GET',
+        headers: new Headers ({
+            'Authorization': token,
+            'Content-Type': 'application/json'
+        }) 
+    })
+    .then (response => response.json())
+    .then (response => {
+        name_newUser.value = response[0].name
+        lastname_newUser.value = response[0].lastname
+        email_newUser.value = response[0].email
+        profile_newUser.value = response[0].profile
+        check_box_isAdmin.value = response[0].is_admin
+        if (check_box_isAdmin.value === '1'){
+            check_box_isAdmin.checked = true;
+        } else {
+            check_box_isAdmin.checked = false;
+        }
+        password_newUser.value = response[0].password
+        repeat_pass_newUser.value = response[0].password
+    })
+    .catch (error => console.log('No puede editar el usuario ' + error))
+}
+
+if (id_user_to_edit !== "") {
+    old_user_show();
+}
+console.log("id_user_to_edit " + id_user_to_edit)
+
 
 /*---------------------------------*/
 /*     edit old users function     */
 /*---------------------------------*/
 function update_old_user () {
-    // let is_admin = false;
-    // if (check_box_isAdmin.checked) {
-    //     is_admin = true;
-    // }
-    fetch('http://localhost:3001/users', {
+    let is_admin = false;
+    if (check_box_isAdmin.checked) {
+        is_admin = true;
+    }
+    console.log(is_admin)
+    fetch('http://localhost:3001/users/'+ id_user_to_edit, {
         method: 'PUT',
         headers: new Headers ({
             'Authorization': token,
@@ -100,13 +108,11 @@ function update_old_user () {
             'password': password_newUser.value
         })
     })
-    //.then (response => response.json())este json era un problema, enviaba datos undefined
-    .then (response => { 
+    //.then (response => response.json())//este json era un problema, enviaba datos undefined
+    .then (response => {
         location.href = '../users.html'
     })
     .catch (error => console.log("error al crear usuario" + error) )
-   
-
 }
 
 
@@ -114,12 +120,18 @@ function update_old_user () {
 /*     create or edit users     */
 /*------------------------------*/
 add_newUser.addEventListener("click", () => {
-    if(!id_user_to_edit) {
+    console.log("btn")
+    if(id_user_to_edit === "") {
+        console.log("soy nuevo")
         add_new_user();
+        //location.href = '../users.html'
     } else {
-        update_old_user();
+        console.log("soy viejo")
+        update_old_user()
+        //location.href = '../users.html'
     }
 });
+
 
 
 
