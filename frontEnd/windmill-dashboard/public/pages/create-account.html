@@ -37,7 +37,6 @@
               <input
                 id="lastname_input_newContact"
                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                type="password"
               />
             </label>
             <label class="margin_new block text-sm">
@@ -47,7 +46,6 @@
               <input
                 id="profile_input_newContact"
                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                type="password"
               />
             </label>
             <label class="margin_new block text-sm">
@@ -57,18 +55,15 @@
               <input
                 id="email_input_newContact"
                 class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                type="password"
               />
             </label>
             <label class="margin_new block text-sm">
               <span class="text-gray-700 dark:text-gray-400">
                 Compañía
               </span>
-              <input
-                id="company_input_newContact"
-                class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                type="password"
-              />
+              <select data-target="companyList" class="firstList selectFilter" id="select_company">
+                <option value="-1">Escoja la Compania</option>
+             </select>
             </label>   
           </div>           
         </div>    
@@ -78,31 +73,35 @@
             <span class="text-gray-700 dark:text-gray-400">
               Región
             </span>
-            <input
+            <!-- <input
               id="region_input_newContact"
               class="block mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
               type="password"
-            />
+            /> -->
+            <select data-target="secondList" class="firstList selectFilter" id="select_region">
+               <option value="-1">Escoja la Region</option>
+            </select>
           </label>  
           <label class="margin_new block text-sm">
             <span class="text-gray-700 dark:text-gray-400">
               País
             </span>
-            <input
+            <!-- <input
               id="country_input_newContact"
               class="block mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
               type="password"
-            />
+            /> -->
+            <select data-target="thirdList" class="secondList selectFilter" id="select_country">
+              <option value="-1">Select</option>
+            </select>
           </label> 
           <label class="margin_new block text-sm">
             <span class="text-gray-700 dark:text-gray-400">
               Ciudad
             </span>
-            <input
-              id="city_input_newContact"
-              class="block mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-              type="password"
-            />
+            <select class="thirdList selectFilter" id="select_city">
+              <option value="-1">Select</option>
+            </select>
           </label>
           <label class="margin_new block text-sm">
             <span class="text-gray-700 dark:text-gray-400">
@@ -111,18 +110,20 @@
             <input
               id="address_input_newContact"
               class="block mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-              type="password"
             />
           </label>
           <label class="margin_new block text-sm">
             <span class="text-gray-700 dark:text-gray-400">
               Interés
             </span>
-            <input
-              id="interest_input_newContact"
-              class="block mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-              type="password"
-            />
+            <select data-target="interestList" class="selectFilter" id="select_interest">
+              <option value="-1">Select</option>
+              <option data-ref="0%">0%</option>
+              <option data-ref="25%">25%</option>
+              <option data-ref="50%">50%</option>
+              <option data-ref="75%">75%</option>
+              <option data-ref="100%">100%</option>
+            </select>
           </label>
         </div>
         <div id="save_contact" class="flex items-center justify-center p-6">
@@ -152,4 +153,6 @@
     </div>
   </body>
   <script src="../assets/js/script_create_contacts.js"></script>
+  <script src="http://code.jquery.com/jquery.min.js"></script>
+  <script src="../assets/js/selectFilter.min.js"></script>
 </html>
