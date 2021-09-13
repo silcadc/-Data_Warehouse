@@ -190,7 +190,7 @@ function getUsers () {
             /*-----------------------*/
             btn_child_one.addEventListener("click", () =>{
                 let id_user_to_edit = user.user_id
-                localStorage.setItem("id_user_to_edit", id_user_to_edit)                    
+                localStorage.setItem("key_to_edit", id_user_to_edit)                    
                 window.location.href = '../public/pages/createUser.html'
             })
         })        

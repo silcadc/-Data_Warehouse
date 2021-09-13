@@ -21,9 +21,7 @@ function getCompanies () {
     })
     .then (response => response.json())
     .then (response => {
-        console.log(response)
         response.forEach(company => {
-            console.log(company)
             //child of tbody
             const tr_company = document.createElement("tr");//
             tr_company.setAttribute("class", "text-gray-700 dark:text-gray-400");//
@@ -164,7 +162,6 @@ function getCompanies () {
             /*-----------------------------------*/
             btn_child_trash.addEventListener("click", () =>{
                 let id_company_to_delete = company.company_id
-
                 fetch('http://localhost:3001/companies/'+ id_company_to_delete, {
                 method: 'DELETE',
                 headers: new Headers ({
@@ -177,7 +174,7 @@ function getCompanies () {
                     location.reload()
                 })
                 .catch (error => console.log('No puede eliminar la compañia ' + error))
-                })
+            })
         })        
     })
 }

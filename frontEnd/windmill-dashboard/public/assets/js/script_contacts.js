@@ -21,9 +21,7 @@ function getContacts () {
     })
     .then (response => response.json())
     .then (response => {
-        console.log(response)
         response.forEach(contact => {
-            console.log(contact)
             //child of tbody
             const tr_contact = document.createElement("tr");//
             tr_contact.setAttribute("class", "text-gray-700 dark:text-gray-400");//
@@ -186,21 +184,30 @@ function getContacts () {
             /*     delete a contact by actions   */
             /*-----------------------------------*/
             btn_child_trash.addEventListener("click", () =>{
-                let id_contact_to_delete = contact.contact_id
+                let id_contact_to_delete = contact.contact_id;
 
                 fetch('http://localhost:3001/contacts/'+ id_contact_to_delete, {
-                method: 'DELETE',
-                headers: new Headers ({
-                    'Authorization': token,
-                    'Content-Type': 'application/json'
-                }) 
+                    method: 'DELETE',
+                    headers: new Headers ({
+                        'Authorization': token,
+                        'Content-Type': 'application/json'
+                    }) 
                 })
                 .then (response => {
                     response.json()
                     location.reload()
                 })
                 .catch (error => console.log('No puede eliminar el contacto ' + error))
-                })
+            })
+
+            /*-------------------------------------*/
+            /*      edit a contact by actions      */
+            /*-------------------------------------*/
+            btn_child_edit.addEventListener("click", () =>{
+                let id_contact_to_edit = contact.contact_id;
+                localStorage.setItem("key_to_edit", id_contact_to_edit)                    
+                window.location.href = '../public/pages/createContact.html'
+            })
         })        
     })
 }

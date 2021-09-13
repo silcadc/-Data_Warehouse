@@ -29,36 +29,48 @@
                 Registrar compañía
               </h1>
             <div id="new_user">
-              
               <label class="block text-sm margin_new">
                 <span class="text-gray-700 dark:text-gray-400">Nombre</span>
                 <input
+                  id="name_input_new_company"
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                 />
               </label>
-              <label class="block mt-4 text-sm margin_new">
-                <span class="text-gray-700 dark:text-gray-400">País</span>
-                <input
-                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  type="password"
-                />
-              </label>
-              <label class="block mt-4 text-sm margin_new">
+              
+              <label class="margin_new block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">
-                  Ciudad  
+                  Región
                 </span>
-                <input
-                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  type="password"
-                />
-              </label>
+                <select id="region_new_company" data-target="secondList" class="firstList selectFilter dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                   <option value="-1">Seleccione</option>
+                </select>
+              </label>  
+
+              <label class="margin_new block text-sm">
+                <span class="text-gray-700 dark:text-gray-400">
+                  País
+                </span>
+                <select id="country_new_company" data-target="secondList" class="firstList selectFilter dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                   <option value="-1">Seleccione</option>
+                </select>
+              </label> 
+
+              <label class="margin_new block text-sm">
+                <span class="text-gray-700 dark:text-gray-400">
+                  Ciudad
+                </span>
+                <select id="city_new_company" data-target="secondList" class="firstList selectFilter dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray">
+                   <option value="-1">Seleccione</option>
+                </select>
+              </label> 
+
               <label class="block mt-4 text-sm margin_new">
                 <span class="text-gray-700 dark:text-gray-400">
                   Dirección
                 </span>
                 <input
+                  id="address_input_new_company"
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  type="password"
                 />
               </label>
               <label class="block mt-4 text-sm margin_new">
@@ -66,8 +78,8 @@
                   Email
                 </span>
                 <input
+                  id="email_input_new_company"
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  type="password"
                 />
               </label>    
               <label class="block mt-4 text-sm margin_new">
@@ -75,14 +87,14 @@
                   Telefono
                 </span>
                 <input
+                  id="telephone_input_new_company"
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  type="password"
                 />
               </label> 
-                   
               <div class="px-6 my-6">
-                <a href="../companies.html">
+                <a>
                   <button
+                    id="add_new_company"
                     class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
                   >
                     Agregar compañía
@@ -92,18 +104,20 @@
               <div class="px-6 my-6">
                 <a href="../companies.html">
                   <button
+                    id="btn_cancel_company"
                     class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
                   >
                     Cancelar
                   </button>
                 </a>
-              </div>  
-                
+              </div> 
             </div>
-            
           </div>
         </div>
       </div>
     </div>
   </body>
+  <script src="../assets/js/script_create_companies.js"></script>
+  <script src="http://code.jquery.com/jquery.min.js"></script>
+  <script src="../assets/js/selectFilter.min.js"></script>
 </html>

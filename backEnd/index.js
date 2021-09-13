@@ -500,6 +500,38 @@ server.get('/contacts', async function (req, res) {
     .catch(error => console.error(error))
 });
 
+//nuevo endoint, necesario para la actualizacion de los contactos mediante id
+server.get('/contacts/:id', authorization_Admin, async function (req, res) {
+    let id_contact = req.params.id
+    let sqlquery = `SELECT 
+        contacts.contact_id,
+        contacts.name,
+        contacts.lastname,
+        contacts.email,
+        contacts.company_id,
+        contacts.city_id,
+        contacts.address,
+        contacts.profile,
+        contacts.interests,
+        cities.country_id, 
+        countries.region_id
+        FROM data_warehouse.contacts AS contacts
+        INNER JOIN data_warehouse.cities AS cities ON contacts.city_id = cities.city_id
+        INNER JOIN data_warehouse.countries AS countries ON cities.country_id = countries.country_id
+        INNER JOIN data_warehouse.regions AS regions ON regions.region_id = countries.region_id 
+        WHERE contact_id = ${id_contact}`
+    await sequelize.query(
+        sqlquery,
+        {        
+            type: sequelize.QueryTypes.SELECT
+        }
+    )
+    .then(function (contact) {
+        res.status(200).send(contact);
+    })
+    .catch(error => console.log(error))
+});
+
 server.post('/contacts', async (req, res) => {  
     const {
         name, lastname, email, company_id, city_id, address, profile, interests

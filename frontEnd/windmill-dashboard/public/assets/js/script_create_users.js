@@ -11,9 +11,8 @@ let add_newUser = document.getElementById("add_newUser");
 let delete_newUser = document.getElementById("delete_newUser");
 
 let token = localStorage.getItem("sesionToken")
-let id_user_to_edit = localStorage.getItem("id_user_to_edit")
-localStorage.setItem("id_user_to_edit", "")  
-
+let id_user_to_edit = localStorage.getItem("key_to_edit")
+localStorage.setItem("key_to_edit", "")  
 
 /*----------------------------------*/
 /*     create new user function     */
@@ -115,20 +114,16 @@ function update_old_user () {
     .catch (error => console.log("error al crear usuario" + error) )
 }
 
-
 /*------------------------------*/
 /*     create or edit users     */
 /*------------------------------*/
 add_newUser.addEventListener("click", () => {
-    console.log("btn")
     if(id_user_to_edit === "") {
         console.log("soy nuevo")
         add_new_user();
-        //location.href = '../users.html'
     } else {
         console.log("soy viejo")
         update_old_user()
-        //location.href = '../users.html'
     }
 });
 
