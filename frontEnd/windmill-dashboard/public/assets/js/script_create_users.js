@@ -80,8 +80,6 @@ function old_user_show () {
 if (id_user_to_edit !== "") {
     old_user_show();
 }
-console.log("id_user_to_edit " + id_user_to_edit)
-
 
 /*---------------------------------*/
 /*     edit old users function     */

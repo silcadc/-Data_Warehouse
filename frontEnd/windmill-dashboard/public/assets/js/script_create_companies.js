@@ -1,15 +1,14 @@
-let name_new_company = document.getElementById("name_input_new_company");
-let region_new_company = document.getElementById("region_input_new_company");
-let country_new_company = document.getElementById("country_input_new_company");
-let city_new_company = document.getElementById("city_input_new_company");
-let address_new_company = document.getElementById("address_input_new_company");
-let email_new_company = document.getElementById("email_input_new_company");
-let telephone_new_company = document.getElementById("telephone_input_new_company");
+let name_newCompany = document.getElementById("name_input_new_company");
+let address_newCompany = document.getElementById("address_input_new_company");
+let email_newCompany = document.getElementById("email_input_new_company");
+let telephone_newCompany = document.getElementById("telephone_input_new_company");
 
 let add_new_company = document.getElementById("add_new_company");
 let btn_cancel_company = document.getElementById("btn_cancel_company");
 
-let token = localStorage.getItem("sesionToken")
+let token = localStorage.getItem("sesionToken");
+let id_company_to_edit = localStorage.getItem("key_to_edit");
+localStorage.setItem("key_to_edit", "");
 
 /*----------------------------*/
 /*     create new company     */
@@ -24,16 +23,15 @@ function add_newCompany () {
             'Content-Type': 'application/json'
         }),
         body: JSON.stringify({
-            'name': name_new_company.value, 
-            'telephone': telephone_new_company.value, 
-            'email': email_new_company.value, 
+            'name': name_newCompany.value, 
+            'telephone': telephone_newCompany.value, 
+            'email': email_newCompany.value, 
             'city_id': cityId_jquery_company,  
-            'address': address_new_company.value
+            'address': address_newCompany.value
         })
     })
     //.then (response => response.json())este json era un problema, enviaba datos undefined
-    .then (response => { 
-        console.log(response)
+    .then (response => {
         location.href = '../companies.html'
     })
     .catch (error => console.log("error al crear usuario" + error) )
@@ -54,7 +52,7 @@ function load_region () {
             const optionTag = document.createElement("option");
             optionTag.setAttribute("data-ref", region.region_id);//
             optionTag.textContent = region.name
-            document.querySelector("#region_new_company").appendChild(optionTag);
+            document.querySelector("#select_region_company").appendChild(optionTag);
         });
     })
     .catch (error => console.log('No puede editar el usuario ' + error))
@@ -76,7 +74,7 @@ function load_country () {
             optionTag.setAttribute("data-ref", country.country_id);//
             optionTag.setAttribute("data-belong", country.region_id);//
             optionTag.textContent =  country.name
-            document.querySelector("#country_new_company").appendChild(optionTag);
+            document.querySelector("#select_country_company").appendChild(optionTag);
         });
     })
     .catch (error => console.log('No puede editar el usuario ' + error))
@@ -98,16 +96,79 @@ function load_city () {
             optionTag.setAttribute("data-ref", city.city_id);//
             optionTag.setAttribute("data-belong", city.country_id);//
             optionTag.textContent =  city.name
-            document.querySelector("#city_new_company").appendChild(optionTag);
+            document.querySelector("#select_city_company").appendChild(optionTag);
         });
     })
     .catch (error => console.log('No puede editar el usuario ' + error))
 }
 
-load_region()
-load_country()
-load_city()
+load_region();
+load_country();
+load_city();
 
+/*-----------------------------------*/
+/*     performans by old company     */
+/*-----------------------------------*/
+function old_company_show () {
+    fetch('http://localhost:3001/companies/'+ id_company_to_edit, {
+        method: 'GET',
+        headers: new Headers ({
+            'Authorization': token,
+            'Content-Type': 'application/json'
+        }) 
+    })
+    .then (response => response.json())
+    .then (response => {
+        name_newCompany.value = response[0].name
+        $("#select_region_company").find("[data-ref='"+ response[0].region_id +"']").attr('selected', true);
+        $("#select_country_company").find("[data-ref='"+ response[0].country_id +"']").attr('selected', true);
+        $("#select_city_company").find("[data-ref='"+ response[0].city_id +"']").attr('selected', true);
+        address_newCompany.value = response[0].address
+        email_newCompany.value = response[0].email 
+        telephone_newCompany.value = response[0].telephone 
+    })
+    .catch (error => console.log('No puede editar el usuario ' + error))
+};
+
+if (id_company_to_edit !== "") {
+    old_company_show();
+};
+
+/*------------------------------------*/
+/*     edit old company function     */
+/*-----------------------------------*/
+function update_old_company () {
+    console.log("company")
+    let cityId_jquery = $("#select_city_company option:selected").attr("data-ref");
+    fetch('http://localhost:3001/companies/'+ id_company_to_edit, {
+        method: 'PUT',
+        headers: new Headers ({
+            'Authorization': token,
+            'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify({
+            'name': name_newCompany.value, 
+            'city_id': cityId_jquery, 
+            'address': address_newCompany.value,  
+            'email': email_newCompany.value,
+            'telephone': telephone_newCompany.value
+        })
+    })
+    .then (response => {
+        location.href = '../companies.html'
+    })
+    .catch (error => console.log("error al crear usuario" + error) )
+};
+
+/*----------------------------------*/
+/*     create or edit companies     */
+/*----------------------------------*/
 add_new_company.addEventListener("click", () => {
-    add_newCompany();
-})
+    if(id_company_to_edit === "") {
+        console.log("soy nuevo")
+        add_newCompany();
+    } else {
+        console.log("soy viejo")
+        update_old_company()
+    }
+});

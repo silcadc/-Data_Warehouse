@@ -217,4 +217,3 @@ save_newContact.addEventListener("click", () => {
         update_old_contact()
     }
 });
-

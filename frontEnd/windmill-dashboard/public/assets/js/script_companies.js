@@ -7,9 +7,9 @@ let delete_company = document.getElementById("delete_company");
 
 let token = localStorage.getItem("sesionToken")
 
-/*------------------------------------*/
+/*-------------------------------------*/
 /*       presentation of companies     */
-/*------------------------------------*/
+/*-------------------------------------*/
 getCompanies()
 function getCompanies () {
     fetch('http://localhost:3001/companies', {
@@ -163,17 +163,26 @@ function getCompanies () {
             btn_child_trash.addEventListener("click", () =>{
                 let id_company_to_delete = company.company_id
                 fetch('http://localhost:3001/companies/'+ id_company_to_delete, {
-                method: 'DELETE',
-                headers: new Headers ({
-                    'Authorization': token,
-                    'Content-Type': 'application/json'
-                }) 
+                    method: 'DELETE',
+                    headers: new Headers ({
+                        'Authorization': token,
+                        'Content-Type': 'application/json'
+                    }) 
                 })
                 .then (response => {
                     response.json()
                     location.reload()
                 })
                 .catch (error => console.log('No puede eliminar la compañia ' + error))
+            })
+
+            /*-------------------------------------*/
+            /*      edit a company by actions      */
+            /*-------------------------------------*/
+            btn_child_edit.addEventListener("click", () =>{
+                let id_company_to_edit = company.company_id;
+                localStorage.setItem("key_to_edit", id_company_to_edit)                    
+                window.location.href = '../public/pages/createCompany.html'
             })
         })        
     })

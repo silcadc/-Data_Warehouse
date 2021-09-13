@@ -417,6 +417,35 @@ server.get('/companies', async function (req, res) {
     .catch(error => console.error(error))
 });
 
+//nuevo endoint, necesario para la actualizacion de las companies mediante id
+server.get('/companies/:id', authorization_Admin, async function (req, res) {
+    let id_company = req.params.id
+    let sqlquery = `SELECT 
+        companies.company_id,
+        companies.name,
+        companies.telephone,
+        companies.email,
+        companies.address,
+        companies.city_id,
+        countries.country_id,
+        regions.region_id    
+        FROM data_warehouse.companies AS companies
+        INNER JOIN data_warehouse.cities AS cities ON companies.city_id = cities.city_id
+        INNER JOIN data_warehouse.countries AS countries ON countries.country_id = cities.country_id
+        INNER JOIN data_warehouse.regions AS regions ON regions.region_id = countries.region_id 
+        WHERE company_id = ${id_company}`
+    await sequelize.query(
+        sqlquery,
+        {        
+            type: sequelize.QueryTypes.SELECT
+        }
+    )
+    .then(function (company) {
+        res.status(200).send(company);
+    })
+    .catch(error => console.log(error))
+});
+
 server.post('/companies', async (req, res) => {   
     const {
         name, telephone, email, city_id, address
