@@ -2,8 +2,8 @@
 let check_box_general_companies = document.getElementById("check_box_general_companies");
 let check_box_company = document.getElementById("check_box_company");
 let add_company = document.getElementById("add_company");
-let edit_company = document.getElementById("edit_company");
-let delete_company = document.getElementById("delete_company");
+
+let delete_company = document.getElementById("btn_delete_companies");
 
 let token = localStorage.getItem("sesionToken")
 
@@ -160,7 +160,8 @@ function getCompanies () {
             /*-----------------------------------*/
             /*     delete a company by actions   */
             /*-----------------------------------*/
-            btn_child_trash.addEventListener("click", () =>{
+            btn_child_trash.addEventListener("click", () => {
+                console.log("jajaja")
                 let id_company_to_delete = company.company_id
                 fetch('http://localhost:3001/companies/'+ id_company_to_delete, {
                     method: 'DELETE',
@@ -187,3 +188,47 @@ function getCompanies () {
         })        
     })
 }
+
+/*--------------------------*/
+/*     delete companies     */
+/*--------------------------*/
+function getCheckedIDs_by_companies() {
+    let elements = document.getElementsByTagName("INPUT");
+    let checkedArray =  new Array();//similar to array[];
+    for(let i=0;i<elements.length;i++)
+    {
+        if(elements[i].type === 'checkbox' && elements[i].checked)
+        {
+            checkedArray.push(elements[i].id);
+        }
+    }
+    console.log(checkedArray)
+    return checkedArray;
+}
+
+delete_company.addEventListener("click", () => {
+    confirmToDelete();
+    function confirmToDelete () {
+        let confi_True_False = confirm("¿Seguro que desea eliminar las compañías seleccionadas?");      
+        if (confi_True_False === true) {
+            let arrayCheckbox = getCheckedIDs_by_companies();
+            let promises = [];
+            arrayCheckbox.forEach(id => {
+                let id_for_delete = id.split('_')[1]   
+                promises.push(
+                    fetch('http://localhost:3001/companies/'+ id_for_delete, {
+                    method: 'DELETE',
+                    headers: new Headers ({
+                        'Authorization': token,
+                        'Content-Type': 'application/json'
+                    }) 
+                    })
+                    .then (response => response.json())
+                    .catch (error => console.log('No puede eliminar las compañías ' + error))
+                )
+            })
+            Promise.all(promises)
+            .then( response => location.reload()) 
+        }
+    }
+});

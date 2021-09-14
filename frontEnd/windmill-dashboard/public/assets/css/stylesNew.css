@@ -54,3 +54,7 @@
 .on {
     display: block;
 }
+
+.without_margin_left {
+    margin-left: 0;
+} 

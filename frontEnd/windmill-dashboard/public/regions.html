@@ -142,22 +142,25 @@
           </ul>
         </div>
       </aside>
-      <div class="flex flex-col flex-1">
-        <main class="h-full pb-16 overflow-y-auto">
-          <div class="position_button text-gray-500 dark:text-gray-400">
-            <a
-              class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
-              href="./regions.html" class="margin_new px-6 my-6">
-              <button
-                id="btn_add_region"
-                class="margin_new items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-              >
-                Agregar región
-              </button>
-            </a>
-          </div>
+      <div 
+        id="container_regions"
+        class="flex flex-col flex-1">
+        <div class="position_button text-gray-500 dark:text-gray-400">
+          <a
+            class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
+            href="./pages/addRegion.html" class="margin_new px-6 my-6">
+            <button
+              id="btn_add_region"
+              class="margin_new items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+            >
+              Agregar región
+            </button>
+          </a>
+        </div>
+        <main 
+          class="h-full pb-16 overflow-y-auto">
           <div class="position_box_region px-6 mx-auto">
-            <div class="position_box_region px-6 mx-auto">
+            <div class="position_box_region px-6 mx-auto without_margin_left">
               <!-- New Table -->
               <div class="position_box_region overflow-hidden rounded-lg shadow-xs">
                 <div class="pos_add position_box_region overflow-x-auto">
@@ -168,10 +171,10 @@
                       <!-- class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" esta linea permite un pading top para las sgtes lineas-->
                     >
                       <tr class="center_second_box text-gray-700 dark:text-gray-400">
-                        
                         <td class="px-4 py-3 text-sm">
-                          <p class="font-semibold">Sur América</p>                          
+                          <p class="font-semibold">Sur America</p>                          
                         </td>
+                        
                         <div class="position_add">
                           <a href="./regions.html" class="px-6">
                             <button
@@ -182,7 +185,6 @@
                             </button>
                           </a>
                         </div>
-                        
                       </tr>          
                     </tbody>
                   </table>
@@ -191,7 +193,7 @@
             </div>  
           </div>
           <div class="position_box_region px-6 mx-auto">
-            <div class="position_box_region px-6 mx-auto">
+            <div class="position_box_region px-6 mx-auto without_margin_left">
               <!-- New Table -->
               <div class="position_box_region overflow-hidden rounded-lg shadow-xs">
                 <div class="pos_add position_box_region overflow-x-auto">
@@ -214,6 +216,7 @@
                             </button>
                           </a>
                         </div>
+                        
                         <div class="position_add">
                           <a href="./regions.html" class="px-6">
                             <button
@@ -224,6 +227,7 @@
                             </button>
                           </a>
                         </div>
+                        
                         <div>
                           <a href="./regions.html" class="px-6">
                             <!-- class="px-6 my-6" -->
@@ -243,7 +247,7 @@
             </div>         
           </div>         
           <div class="position_box_region px-6 mx-auto">
-            <div class="position_box_region px-6 mx-auto">
+            <div class="position_box_region px-6 mx-auto without_margin_left">
               <!-- New Table -->
               <div class="position_box_region overflow-hidden rounded-lg shadow-xs">
                 <div class="pos_add position_box_region overflow-x-auto">
@@ -285,9 +289,9 @@
               </div>
             </div>             
           </div> 
-          
         </main>
       </div>        
     </div>
   </body>
+  <script src="./assets/js/script_regions.js"></script>
 </html>

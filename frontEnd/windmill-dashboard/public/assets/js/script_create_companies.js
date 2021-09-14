@@ -14,8 +14,7 @@ localStorage.setItem("key_to_edit", "");
 /*     create new company     */
 /*----------------------------*/
 function add_newCompany () {
-    let cityId_jquery_company = $("#city_new_company option:selected").attr("data-ref");
-
+    let cityId_jquery_company = $("#select_city_company option:selected").attr("data-ref");
     fetch('http://localhost:3001/companies', {
         method: 'POST',
         headers: new Headers ({
@@ -30,9 +29,8 @@ function add_newCompany () {
             'address': address_newCompany.value
         })
     })
-    //.then (response => response.json())este json era un problema, enviaba datos undefined
     .then (response => {
-        location.href = '../companies.html'
+       location.href = '../companies.html'
     })
     .catch (error => console.log("error al crear usuario" + error) )
 }

@@ -170,7 +170,6 @@ function getUsers () {
             /*--------------------------------*/
             btn_child_two.addEventListener("click", () =>{
                 let id_user_to_delete = user.user_id
-
                 fetch('http://localhost:3001/users/'+ id_user_to_delete, {
                     method: 'DELETE',
                     headers: new Headers ({
@@ -197,14 +196,6 @@ function getUsers () {
     })
 }
 
-/*----------------------------*/
-/*       select all users     */
-/*----------------------------*/
-check_box_general_users.addEventListener("click", () => {
-    btn_delete_user.classList.remove("off")
-    btn_delete_user.classList.add("on")  
-})
-
 /*----------------------*/
 /*     delete users     */
 /*------------------- --*/
@@ -223,44 +214,28 @@ function getCheckedIDs() {
 }
 
 btn_delete_user.addEventListener("click", () => {
-    let arrayCheckbox = getCheckedIDs();
-    let promises = [];
-    arrayCheckbox.forEach(id => {
-        let id_for_delete = id.split('_')[1]   
-        promises.push(
-            fetch('http://localhost:3001/users/'+ id_for_delete, {
-            method: 'DELETE',
-            headers: new Headers ({
-                'Authorization': token,
-                'Content-Type': 'application/json'
-            }) 
+    confirmToDelete();
+    function confirmToDelete () {
+        let confi_True_False = confirm("¿Seguro que desea eliminar los usuarios seleccionados?");      
+        if (confi_True_False === true) {
+            let arrayCheckbox = getCheckedIDs();
+            let promises = [];
+            arrayCheckbox.forEach(id => {
+                let id_for_delete = id.split('_')[1]   
+                promises.push(
+                    fetch('http://localhost:3001/users/'+ id_for_delete, {
+                    method: 'DELETE',
+                    headers: new Headers ({
+                        'Authorization': token,
+                        'Content-Type': 'application/json'
+                    }) 
+                    })
+                    .then (response => response.json())
+                    .catch (error => console.log('No puede eliminar el usuario ' + error))
+                )
             })
-            .then (response => response.json())
-            .catch (error => console.log('No puede eliminar el usuario ' + error))
-        )
-    })
-    Promise.all(promises)
-    .then( response => location.reload()) 
-});
-
-
-btn_delete_user.addEventListener("click", () => {
-    let arrayCheckbox = getCheckedIDs();
-    let promises = [];
-    arrayCheckbox.forEach(id => {
-        let id_for_delete = id.split('_')[1]   
-        promises.push(
-            fetch('http://localhost:3001/users/'+ id_for_delete, {
-            method: 'DELETE',
-            headers: new Headers ({
-                'Authorization': token,
-                'Content-Type': 'application/json'
-            }) 
-            })
-            .then (response => response.json())
-            .catch (error => console.log('No puede eliminar el usuario ' + error))
-        )
-    })
-    Promise.all(promises)
-    .then( response => location.reload()) 
+            Promise.all(promises)
+            .then( response => location.reload()) 
+        }
+    }
 });
