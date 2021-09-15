@@ -58,3 +58,11 @@
 .without_margin_left {
     margin-left: 0;
 } 
+
+.p-country {
+    padding-left: 3.5rem;
+}
+
+.p-city {
+    padding-left: 5.5rem;
+}

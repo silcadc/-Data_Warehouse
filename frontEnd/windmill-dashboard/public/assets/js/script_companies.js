@@ -161,7 +161,6 @@ function getCompanies () {
             /*     delete a company by actions   */
             /*-----------------------------------*/
             btn_child_trash.addEventListener("click", () => {
-                console.log("jajaja")
                 let id_company_to_delete = company.company_id
                 fetch('http://localhost:3001/companies/'+ id_company_to_delete, {
                     method: 'DELETE',
@@ -202,7 +201,6 @@ function getCheckedIDs_by_companies() {
             checkedArray.push(elements[i].id);
         }
     }
-    console.log(checkedArray)
     return checkedArray;
 }
 

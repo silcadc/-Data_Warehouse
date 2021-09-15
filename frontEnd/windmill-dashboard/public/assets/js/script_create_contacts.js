@@ -51,7 +51,6 @@ function create_new_contact () {
         location.href = '../contacts.html'
     })
     .catch (error => console.log("error al crear usuario" + error) )
-    
 }
 
 //region
@@ -177,10 +176,10 @@ if (id_contact_to_edit !== "") {
 /*     edit old contact function     */
 /*-----------------------------------*/
 function update_old_contact () {
-    console.log("lalak;aks")
     let companyId_jquery = $("#select_company option:selected").attr("data-ref");
     let cityId_jquery = $("#select_city option:selected").attr("data-ref");
     let interestId_jquery = $("#select_interest option:selected").attr("data-ref");
+    
     fetch('http://localhost:3001/contacts/'+ id_contact_to_edit, {
         method: 'PUT',
         headers: new Headers ({
@@ -210,10 +209,8 @@ function update_old_contact () {
 /*---------------------------------*/
 save_newContact.addEventListener("click", () => {
     if(id_contact_to_edit === "") {
-        console.log("soy nuevo")
         create_new_contact();
     } else {
-        console.log("soy viejo")
         update_old_contact()
     }
 });

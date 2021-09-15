@@ -22,11 +22,11 @@ server.listen(port, () => {
 let jwtClave = "5XSNGM0bTFjNCpEV0ZNTElORS02Mg==";
 server.use(expressJwt({ secret: jwtClave, algorithms: ['sha1', 'RS256', 'HS256']}).unless({ path: ["/users/login"] }));
 
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 100
-});
-server.use(limiter);
+// const limiter = rateLimit({
+//     windowMs: 15 * 60 * 1000,
+//     max: 100
+// });
+// server.use(limiter);
 
 //Middleware for admin authorization
 const authorization_Admin = (req, res, next) => {
@@ -272,6 +272,22 @@ server.get('/countries', async function (req, res) {
     .catch(error => console.error(error))
 });
 
+//nuevo endoint, necesario para la actualizacion de los paises mediante id
+server.get('/countries/:id', authorization_Admin, async function (req, res) {
+    let id_country = req.params.id
+    let sqlquery = `SELECT * FROM countries WHERE country_id = ${id_country}`
+    await sequelize.query(
+        sqlquery,
+        {        
+            type: sequelize.QueryTypes.SELECT
+        }
+    )
+    .then(function (country) {
+        res.status(200).send(country);
+    })
+    .catch(error => console.log(error))
+});
+
 server.post('/countries', async (req, res) => {    
     const {
         name, region_id
@@ -298,6 +314,26 @@ server.put('/countries/:id', async (req, res) => {
     let countriesInfo = [name, region_id, id_country];
     await sequelize.query(
         'UPDATE countries SET `name`= ?, `region_id`= ? WHERE country_id = ?',
+        {
+            replacements: countriesInfo,
+            type: sequelize.QueryTypes.UPDATE
+        }
+    )
+    .then(function (countries) {
+        res.status(200).send("country updated successfully")
+    })
+    .catch(error => res.status(500).send(error))
+});
+
+//se agrego este endpoint para la edicion de los nombres de paises.
+server.patch('/countries/:id', async (req, res) => {
+    let id_country = req.params.id;     
+    const {
+        name
+    } = req.body
+    let countriesInfo = [name, id_country];
+    await sequelize.query(
+        'UPDATE countries SET `name`= ? WHERE country_id = ?',
         {
             replacements: countriesInfo,
             type: sequelize.QueryTypes.UPDATE
@@ -337,6 +373,22 @@ server.get('/cities', async function (req, res) {
     .catch(error => console.error(error))
 });
 
+//nuevo endoint, necesario para la actualizacion de las ciudades mediante id
+server.get('/cities/:id', authorization_Admin, async function (req, res) {
+    let id_city = req.params.id
+    let sqlquery = `SELECT * FROM cities WHERE city_id = ${id_city}`
+    await sequelize.query(
+        sqlquery,
+        {        
+            type: sequelize.QueryTypes.SELECT
+        }
+    )
+    .then(function (city) {
+        res.status(200).send(city);
+    })
+    .catch(error => console.log(error))
+});
+
 server.post('/cities', async (req, res) => {  
     const {
         name, country_id
@@ -356,13 +408,33 @@ server.post('/cities', async (req, res) => {
 });
 
 server.put('/cities/:id', async (req, res) => {
-    let id_country = req.params.id;     
+    let id_city = req.params.id;     
     const {
         name, country_id
     } = req.body
-    let citiesInfo = [name, country_id, id_country];
+    let citiesInfo = [name, country_id, id_city];
     await sequelize.query(
-        'UPDATE cities SET `name`= ?, `country_id`= ? WHERE country_id = ?',
+        'UPDATE cities SET `name`= ?, `country_id`= ? WHERE city_id = ?',
+        {
+            replacements: citiesInfo,
+            type: sequelize.QueryTypes.UPDATE
+        }
+    )
+    .then(function (cities) {
+        res.status(200).send("city updated successfully")
+    })
+    .catch(error => res.status(500).send(error))
+});
+
+//se agrego este endpoint para la edicion de los nombres de las ciudades.
+server.patch('/cities/:id', async (req, res) => {
+    let id_city = req.params.id;     
+    const {
+        name
+    } = req.body
+    let citiesInfo = [name, id_city];
+    await sequelize.query(
+        'UPDATE cities SET `name`= ? WHERE city_id = ?',
         {
             replacements: citiesInfo,
             type: sequelize.QueryTypes.UPDATE
@@ -375,10 +447,10 @@ server.put('/cities/:id', async (req, res) => {
 });
 
 server.delete('/cities/:id', async (req, res) => {   
-    let id_country = req.params.id;
-    let citiesInfo = [id_country];
+    let id_city = req.params.id;
+    let citiesInfo = [id_city];
     await sequelize.query(
-        'DELETE FROM cities WHERE country_id = ?',
+        'DELETE FROM cities WHERE city_id = ?',
         {
             replacements: citiesInfo,
             type: sequelize.QueryTypes.DELETE

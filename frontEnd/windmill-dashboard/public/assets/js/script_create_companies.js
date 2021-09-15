@@ -136,7 +136,6 @@ if (id_company_to_edit !== "") {
 /*     edit old company function     */
 /*-----------------------------------*/
 function update_old_company () {
-    console.log("company")
     let cityId_jquery = $("#select_city_company option:selected").attr("data-ref");
     fetch('http://localhost:3001/companies/'+ id_company_to_edit, {
         method: 'PUT',
@@ -163,10 +162,8 @@ function update_old_company () {
 /*----------------------------------*/
 add_new_company.addEventListener("click", () => {
     if(id_company_to_edit === "") {
-        console.log("soy nuevo")
         add_newCompany();
     } else {
-        console.log("soy viejo")
         update_old_company()
     }
 });

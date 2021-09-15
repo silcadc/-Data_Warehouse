@@ -29,7 +29,7 @@
   </head>
   <body>
     <div
-      class="flex h-screen bg-gray-50 dark:bg-gray-900"
+      class="flex bg-gray-50 dark:bg-gray-900"
       :class="{ 'overflow-hidden': isSideMenuOpen}"
     >
       <!-- Desktop sidebar -->
@@ -157,141 +157,9 @@
             </button>
           </a>
         </div>
-        <main 
-          class="h-full pb-16 overflow-y-auto">
-          <div class="position_box_region px-6 mx-auto">
-            <div class="position_box_region px-6 mx-auto without_margin_left">
-              <!-- New Table -->
-              <div class="position_box_region overflow-hidden rounded-lg shadow-xs">
-                <div class="pos_add position_box_region overflow-x-auto">
-                  <!-- las dos lineas de arriba mantienen sidebar -->
-                  <table class="whitespace-no-wrap">
-                    
-                    <tbody
-                      <!-- class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" esta linea permite un pading top para las sgtes lineas-->
-                    >
-                      <tr class="center_second_box text-gray-700 dark:text-gray-400">
-                        <td class="px-4 py-3 text-sm">
-                          <p class="font-semibold">Sur America</p>                          
-                        </td>
-                        
-                        <div class="position_add">
-                          <a href="./regions.html" class="px-6">
-                            <button
-                              id="btn_add_country"
-                              class="items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                            >
-                            Agregar País
-                            </button>
-                          </a>
-                        </div>
-                      </tr>          
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>  
-          </div>
-          <div class="position_box_region px-6 mx-auto">
-            <div class="position_box_region px-6 mx-auto without_margin_left">
-              <!-- New Table -->
-              <div class="position_box_region overflow-hidden rounded-lg shadow-xs">
-                <div class="pos_add position_box_region overflow-x-auto">
-                  <!-- las dos lineas de arriba mantienen sidebar -->
-                  <table class="whitespace-no-wrap">
-                    <tbody
-                      <!-- class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" esta linea permite un pading top para las sgtes lineas-->
-                    >
-                      <tr class="center_second_box text-gray-700 dark:text-gray-400">
-                        <td class="px-4 py-3 text-sm">
-                          <p class="font-semibold">Colombia</p>                          
-                        </td>
-                        <div class="position_add">
-                          <a href="./regions.html" class="px-6">
-                            <button
-                              id="btn_add_city"
-                              class="items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                            >
-                            Agregar Ciudad
-                            </button>
-                          </a>
-                        </div>
-                        
-                        <div class="position_add">
-                          <a href="./regions.html" class="px-6">
-                            <button
-                              id="btn_delete_country"
-                              class="items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                            >
-                            Eliminar
-                            </button>
-                          </a>
-                        </div>
-                        
-                        <div>
-                          <a href="./regions.html" class="px-6">
-                            <!-- class="px-6 my-6" -->
-                            <button
-                              id="btn_edit_country"
-                              class="items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                            >
-                            Editar
-                            </button>
-                          </a>
-                        </div>
-                      </tr>                                         
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>         
-          </div>         
-          <div class="position_box_region px-6 mx-auto">
-            <div class="position_box_region px-6 mx-auto without_margin_left">
-              <!-- New Table -->
-              <div class="position_box_region overflow-hidden rounded-lg shadow-xs">
-                <div class="pos_add position_box_region overflow-x-auto">
-                  <!-- las dos lineas de arriba mantienen sidebar -->
-                  <table class="whitespace-no-wrap">
-                    <tbody
-                      <!-- class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" esta linea permite un pading top para las sgtes lineas-->
-                    >
-                      <tr class="center_second_box text-gray-700 dark:text-gray-400">
-                        <td class="px-4 py-3 text-sm">
-                          <p class="font-semibold">Bogotá</p>                          
-                        </td>                        
-                      </tr>   
-                      <div class="position_add">
-                        <a href="./regions.html" class="px-6">
-                          <!-- class="px-6 my-6" -->
-                          <button
-                            id="btn_delete_city"
-                            class="items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                          >
-                          Eliminar
-                          </button>
-                        </a>
-                      </div>
-                      <div>
-                        <a href="./regions.html" class="px-6">
-                          <!-- class="px-6 my-6" -->
-                          <button
-                            id="btn_edit_city"
-                            class="items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                          >
-                          Editar
-                          </button>
-                        </a>
-                      </div>  
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>             
-          </div> 
-        </main>
       </div>        
     </div>
   </body>
   <script src="./assets/js/script_regions.js"></script>
+  <script src="./assets/js/jquery.min.js"></script>
 </html>

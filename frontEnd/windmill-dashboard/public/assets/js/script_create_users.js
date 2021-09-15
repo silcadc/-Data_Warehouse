@@ -89,7 +89,6 @@ function update_old_user () {
     if (check_box_isAdmin.checked) {
         is_admin = true;
     }
-    console.log(is_admin)
     fetch('http://localhost:3001/users/'+ id_user_to_edit, {
         method: 'PUT',
         headers: new Headers ({
@@ -117,10 +116,8 @@ function update_old_user () {
 /*------------------------------*/
 add_newUser.addEventListener("click", () => {
     if(id_user_to_edit === "") {
-        console.log("soy nuevo")
         add_new_user();
     } else {
-        console.log("soy viejo")
         update_old_user()
     }
 });

@@ -123,7 +123,6 @@ function getUsers () {
             img_div_two.setAttribute("class", "object-cover w-full h-full rounded-full");
             img_div_two.setAttribute("src", "../public/assets/img/icons8-delete-64-white.png");
             
-
             document.querySelector("#container_users").appendChild(tr_user);
             tr_user.appendChild(td_child_check_box);
             td_child_check_box.appendChild(div_child_check_box);
@@ -209,7 +208,6 @@ function getCheckedIDs() {
             checkedArray.push(elements[i].id);
         }
     }
-    console.log(checkedArray)
     return checkedArray;
 }
 
@@ -224,18 +222,22 @@ btn_delete_user.addEventListener("click", () => {
                 let id_for_delete = id.split('_')[1]   
                 promises.push(
                     fetch('http://localhost:3001/users/'+ id_for_delete, {
-                    method: 'DELETE',
-                    headers: new Headers ({
-                        'Authorization': token,
-                        'Content-Type': 'application/json'
-                    }) 
+                        method: 'DELETE',
+                        headers: new Headers ({
+                            'Authorization': token,
+                            'Content-Type': 'application/json'
+                        }) 
                     })
-                    .then (response => response.json())
+                    .then (response => {                        
+                        location.reload();
+                    })
                     .catch (error => console.log('No puede eliminar el usuario ' + error))
                 )
             })
             Promise.all(promises)
             .then( response => location.reload()) 
+        } else {
+            location.reload();
         }
     }
 });

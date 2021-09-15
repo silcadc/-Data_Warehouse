@@ -225,7 +225,6 @@ function getCheckedIDs_by_contacts() {
             checkedArray.push(elements[i].id);
         }
     }
-    console.log(checkedArray)
     return checkedArray;
 }
 
@@ -240,20 +239,22 @@ delete_contact.addEventListener("click", () => {
                 let id_for_delete = id.split('_')[1]   
                 promises.push(
                     fetch('http://localhost:3001/contacts/'+ id_for_delete, {
-                    method: 'DELETE',
-                    headers: new Headers ({
-                        'Authorization': token,
-                        'Content-Type': 'application/json'
-                    }) 
+                        method: 'DELETE',
+                        headers: new Headers ({
+                            'Authorization': token,
+                            'Content-Type': 'application/json'
+                        }) 
                     })
-                    .then (response => response.json())
+                    .then (response => {                        
+                        location.reload();
+                    })
                     .catch (error => console.log('No puede eliminar los contactos ' + error))
                 )
             })
             Promise.all(promises)
             .then( response => location.reload())
         } else {
-            window.location.href = '../public/pages/contact.html'
+            location.reload();
         }
     }     
 });
