@@ -632,6 +632,41 @@ server.get('/contacts/:id', authorization_Admin, async function (req, res) {
     })
     .catch(error => console.log(error))
 });
+//contacts by text
+//nuevo endoint, necesario para la busqueda 
+//de los contactos mediante texto en barra de busqueda
+server.get('/contactsbytxt/:id', authorization_Admin, async function (req, res) {
+    let id_contact = req.params.id
+    let sqlquery = `
+            SELECT 
+            data_warehouse.contacts.contact_id,
+            data_warehouse.contacts.name,
+            data_warehouse.contacts.lastname,
+            data_warehouse.contacts.email,
+            data_warehouse.contacts.address,
+            data_warehouse.contacts.profile,
+            data_warehouse.contacts.interests,
+            data_warehouse.companies.name AS 'company',
+            data_warehouse.cities.name AS 'city',
+            data_warehouse.countries.name AS 'country',
+            data_warehouse.regions.name AS 'region'
+            FROM data_warehouse.contacts 
+            INNER JOIN data_warehouse.companies ON data_warehouse.contacts.company_id = data_warehouse.companies.company_id
+            INNER JOIN data_warehouse.cities ON data_warehouse.contacts.city_id = data_warehouse.cities.city_id
+            INNER JOIN data_warehouse.countries ON data_warehouse.countries.country_id = data_warehouse.cities.country_id
+            INNER JOIN data_warehouse.regions ON data_warehouse.regions.region_id = data_warehouse.countries.region_id
+            WHERE data_warehouse.contacts.name like '%${id_contact}%'`
+    await sequelize.query(
+        sqlquery,
+        {        
+            type: sequelize.QueryTypes.SELECT
+        }
+    )
+    .then(function (contact) {
+        res.status(200).send(contact);
+    })
+    .catch(error => console.log(error))
+});
 
 server.post('/contacts', async (req, res) => {  
     const {

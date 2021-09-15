@@ -7,12 +7,27 @@ let delete_contact = document.getElementById("btn_delete_contacts");
 
 let token = localStorage.getItem("sesionToken")
 
+/*-------------------------*/
+/*     search contacts     */
+/*-------------------------*/
+search_input_contact.addEventListener('keydown', () => {
+    let txt_by_search = search_input_contact.value
+    getContacts(txt_by_search)
+}) 
+
 /*------------------------------------*/
 /*       presentation of contacts     */
 /*------------------------------------*/
-getContacts()
-function getContacts () {
-    fetch('http://localhost:3001/contacts', {
+getContacts("")
+function getContacts (text) {
+    
+    let endpoint = 'http://localhost:3001/contacts'
+    if(text != ""){
+        endpoint = 'http://localhost:3001/contactsbytxt/' + text
+        $("#container_contacts").empty();
+    }
+    
+    fetch(endpoint, {
         method: 'GET',
         headers: new Headers ({
             'Authorization': token,
