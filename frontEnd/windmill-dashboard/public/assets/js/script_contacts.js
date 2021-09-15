@@ -7,6 +7,26 @@ let delete_contact = document.getElementById("btn_delete_contacts");
 
 let token = localStorage.getItem("sesionToken")
 
+function showUsersPage()
+{
+    fetch("http://localhost:3001/users/isAdmin", {
+        method: 'GET',
+        headers: new Headers ({
+            'Authorization': token,
+            'Content-Type': 'application/json'
+        })
+    })
+    .then (response => response.json())
+    .then (response => {
+        console.log("hi");
+        console.log(response);
+        if (response === false){
+            $("#userPage").remove();
+        }   
+    })
+}
+showUsersPage()
+//$("#userPage").
 /*-------------------------*/
 /*     search contacts     */
 /*-------------------------*/

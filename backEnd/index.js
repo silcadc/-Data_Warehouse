@@ -96,6 +96,10 @@ server.get('/users', authorization_Admin, async function (req, res) {
     .catch(error => console.log(error))
 });
 
+server.get('/users/isAdmin', authorization_Admin, function (req, res) {
+    res.status(200).send(req.dataUser.is_admin);
+});
+
 //nuevo endoint, necesario para la actualizacion de los usuarios mediante id
 server.get('/users/:id', authorization_Admin, async function (req, res) {
     let id_user = req.params.id
