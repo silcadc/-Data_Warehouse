@@ -22,11 +22,11 @@ server.listen(port, () => {
 let jwtClave = "5XSNGM0bTFjNCpEV0ZNTElORS02Mg==";
 server.use(expressJwt({ secret: jwtClave, algorithms: ['sha1', 'RS256', 'HS256']}).unless({ path: ["/users/login"] }));
 
-// const limiter = rateLimit({
-//     windowMs: 15 * 60 * 1000,
-//     max: 100
-// });
-// server.use(limiter);
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 200
+});
+server.use(limiter);
 
 //Middleware for admin authorization
 const authorization_Admin = (req, res, next) => {
@@ -95,7 +95,7 @@ server.get('/users', authorization_Admin, async function (req, res) {
     })
     .catch(error => console.log(error))
 });
-
+//nuevo endoint, necesario para conocer los usuarios administradores y basicos.
 server.get('/users/isAdmin', authorization_Admin, function (req, res) {
     res.status(200).send(req.dataUser.is_admin);
 });

@@ -3,7 +3,6 @@ let input_email = document.getElementById("input_email");
 let input_password = document.getElementById("input_password");
 let button_login = document.getElementById("button_login");
 
-
 // Función de autenticación
 const login = (e) => {
     const data_login = {
